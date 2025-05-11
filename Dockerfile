@@ -1,24 +1,26 @@
-FROM python:3.12-slim 
+# syntax=docker/dockerfile:1.4
+FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim
 
 WORKDIR /app
 
-RUN apt-get update && apt-get install -y zip unzip wget
-# RUN 
-RUN wget -O cat.jpg https://cataas.com/cat
-# RUN 
-RUN wget https://raw.githubusercontent.com/tonybeltramelli/pix2code/master/datasets/pix2code_datasets.zip \
-&& for i in $(seq -f "%02g" 1 9); do \
-wget https://raw.githubusercontent.com/tonybeltramelli/pix2code/master/datasets/pix2code_datasets.z$i; \
-done \
-&& zip -F pix2code_datasets.zip --out datasets.zip \
-&& unzip datasets.zip -d ./datasets/COCO/ 
+ENV UV_COMPILE_BYTECODE=1 UV_LINK_MODE=copy
 
-COPY requirements.txt /app/
+# Configure the Python directory so it is consistent
+# And only use the managed Python version
+ENV UV_PYTHON_INSTALL_DIR=/python UV_PYTHON_PREFERENCE=only-managed
 
-RUN pip install --no-cache-dir -r requirements.txt
+# Install Python before the project for caching
+# RUN uv python install 3.12
+# COPY fetch_data.sh /app/
+# RUN bash fetch_data.sh
 
-COPY . /app/
+COPY uv.lock pyproject.toml ./
+RUN uv sync --frozen --no-install-project --no-dev
 
-CMD ["python", "llada_train.py"]
+
+COPY . /app
+RUN uv sync --frozen --no-dev
+
+CMD ["uv", "run", "llada_train.py"]
 
 

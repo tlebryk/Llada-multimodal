@@ -9,7 +9,7 @@ from transformers import AutoTokenizer, AutoModel
 from transformers import CLIPVisionModel, CLIPImageProcessor
 import torch.nn as nn
 from PIL import Image
-from typing import List, Dict, Any, Optional
+from typing import List, Dict, Any, Optional, Tuple
 
 def add_gumbel_noise(logits: torch.Tensor, temperature: float) -> torch.Tensor:
     '''
