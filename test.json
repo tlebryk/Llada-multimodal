@@ -1,0 +1,877 @@
+[
+  {
+    "image": "232C917B-96C5-4704-A499-43C37E9512DF.png",
+    "image_id": 245,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-active\n}\nrow {\ndouble {\nsmall-title, text, btn-red\n}\ndouble {\nsmall-title, text, btn-orange\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-green\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\n}"
+  },
+  {
+    "image": "E2E13292-29B2-46CB-9089-326E91031DF0.png",
+    "image_id": 1582,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-inactive, btn-active\n}\nrow {\nsingle {\nsmall-title, text, btn-green\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-red\n}\ndouble {\nsmall-title, text, btn-red\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-green\n}\n}"
+  },
+  {
+    "image": "A1E788C0-5057-4A44-BAEA-C3AB1A45EFDD.png",
+    "image_id": 1139,
+    "caption": "header {\nbtn-inactive, btn-active, btn-inactive, btn-inactive\n}\nrow {\nsingle {\nsmall-title, text, btn-green\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-green\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-orange\n}\ndouble {\nsmall-title, text, btn-red\n}\n}"
+  },
+  {
+    "image": "790B9015-40DC-4B8B-AEDA-7EF6A0B687C9.png",
+    "image_id": 850,
+    "caption": "header {\nbtn-inactive, btn-active, btn-inactive\n}\nrow {\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-green\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-green\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-green\n}\n}"
+  },
+  {
+    "image": "764A5E68-5A8C-41FA-8447-619823DA554B.png",
+    "image_id": 831,
+    "caption": "header {\nbtn-inactive, btn-active, btn-inactive, btn-inactive, btn-inactive\n}\nrow {\nsingle {\nsmall-title, text, btn-orange\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-red\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-green\n}\ndouble {\nsmall-title, text, btn-green\n}\n}"
+  },
+  {
+    "image": "A1E9A76E-B19F-40B3-8D01-48BBCC218BB6.png",
+    "image_id": 1140,
+    "caption": "header {\nbtn-inactive, btn-active\n}\nrow {\ndouble {\nsmall-title, text, btn-green\n}\ndouble {\nsmall-title, text, btn-orange\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-green\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-green\n}\n}"
+  },
+  {
+    "image": "FC261138-08E4-41AC-B411-D82D6FDE354F.png",
+    "image_id": 1726,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-inactive, btn-inactive, btn-active\n}\nrow {\nsingle {\nsmall-title, text, btn-green\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-red\n}\ndouble {\nsmall-title, text, btn-red\n}\n}"
+  },
+  {
+    "image": "31A4467A-9C93-4D87-81F9-BB09FC7D67A2.png",
+    "image_id": 356,
+    "caption": "header {\nbtn-inactive, btn-active\n}\nrow {\ndouble {\nsmall-title, text, btn-green\n}\ndouble {\nsmall-title, text, btn-red\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-orange\n}\n}"
+  },
+  {
+    "image": "882C4A08-385B-4255-9DBE-7DA407A2F2C7.png",
+    "image_id": 955,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-active, btn-inactive, btn-inactive\n}\nrow {\ndouble {\nsmall-title, text, btn-red\n}\ndouble {\nsmall-title, text, btn-red\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-green\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-green\n}\n}"
+  },
+  {
+    "image": "BD59B53F-3124-48E7-AD41-2471ADF789F4.png",
+    "image_id": 1331,
+    "caption": "header {\nbtn-active, btn-inactive, btn-inactive, btn-inactive\n}\nrow {\nsingle {\nsmall-title, text, btn-red\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-green\n}\ndouble {\nsmall-title, text, btn-orange\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-green\n}\n}"
+  },
+  {
+    "image": "8637C7B8-0028-43F8-87A2-1251A0A6AD1B.png",
+    "image_id": 945,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-active, btn-inactive\n}\nrow {\ndouble {\nsmall-title, text, btn-green\n}\ndouble {\nsmall-title, text, btn-orange\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\n}"
+  },
+  {
+    "image": "B3AD8E3D-E62E-456A-A421-B6340E442D6B.png",
+    "image_id": 1269,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-active\n}\nrow {\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-red\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-orange\n}\ndouble {\nsmall-title, text, btn-green\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-orange\n}\n}"
+  },
+  {
+    "image": "C6F1A3E4-FBC2-4371-AED5-2F1CF04C8E13.png",
+    "image_id": 1388,
+    "caption": "header {\nbtn-active, btn-inactive, btn-inactive, btn-inactive\n}\nrow {\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-red\n}\ndouble {\nsmall-title, text, btn-red\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-green\n}\n}"
+  },
+  {
+    "image": "41DDFA16-DF58-47D1-86FB-6A9903D3E239.png",
+    "image_id": 465,
+    "caption": "header {\nbtn-inactive, btn-active\n}\nrow {\nsingle {\nsmall-title, text, btn-green\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-orange\n}\n}"
+  },
+  {
+    "image": "6680273A-17BA-4E4C-9C6C-2DB03D08610F.png",
+    "image_id": 733,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-active, btn-inactive\n}\nrow {\ndouble {\nsmall-title, text, btn-orange\n}\ndouble {\nsmall-title, text, btn-green\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-green\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-green\n}\n}"
+  },
+  {
+    "image": "00E15BB2-5568-4466-BA18-A8A8D34FC61C.png",
+    "image_id": 5,
+    "caption": "header {\nbtn-active, btn-inactive, btn-inactive, btn-inactive, btn-inactive\n}\nrow {\nsingle {\nsmall-title, text, btn-orange\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\n}"
+  },
+  {
+    "image": "807F4D51-C633-4622-9BE4-F403F5D297E4.png",
+    "image_id": 895,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-active\n}\nrow {\ndouble {\nsmall-title, text, btn-green\n}\ndouble {\nsmall-title, text, btn-red\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-orange\n}\n}"
+  },
+  {
+    "image": "590B3809-2FB1-4EB6-AC21-E7EF83163762.png",
+    "image_id": 640,
+    "caption": "header {\nbtn-inactive, btn-active, btn-inactive, btn-inactive, btn-inactive\n}\nrow {\nsingle {\nsmall-title, text, btn-green\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-green\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-orange\n}\n}"
+  },
+  {
+    "image": "82492052-6A1D-403D-BC0F-74A7BE7471D7.png",
+    "image_id": 910,
+    "caption": "header {\nbtn-active, btn-inactive, btn-inactive, btn-inactive\n}\nrow {\nsingle {\nsmall-title, text, btn-red\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-orange\n}\ndouble {\nsmall-title, text, btn-red\n}\n}"
+  },
+  {
+    "image": "A3A88541-6BC5-4484-A0E0-F96D2BA1E0EB.png",
+    "image_id": 1150,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-active, btn-inactive, btn-inactive\n}\nrow {\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-orange\n}\ndouble {\nsmall-title, text, btn-orange\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-orange\n}\n}"
+  },
+  {
+    "image": "8443A6BB-E5B9-43C3-99A5-E60AEFBC433A.png",
+    "image_id": 929,
+    "caption": "header {\nbtn-inactive, btn-active, btn-inactive, btn-inactive, btn-inactive\n}\nrow {\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-orange\n}\ndouble {\nsmall-title, text, btn-red\n}\n}"
+  },
+  {
+    "image": "F927E2E8-A54E-4002-B56D-03C7987FD83B.png",
+    "image_id": 1708,
+    "caption": "header {\nbtn-inactive, btn-active, btn-inactive, btn-inactive\n}\nrow {\nsingle {\nsmall-title, text, btn-green\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-orange\n}\ndouble {\nsmall-title, text, btn-orange\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-green\n}\n}"
+  },
+  {
+    "image": "EB6E2865-8CC9-4386-A6C9-7E0668478F39.png",
+    "image_id": 1637,
+    "caption": "header {\nbtn-inactive, btn-active, btn-inactive, btn-inactive\n}\nrow {\ndouble {\nsmall-title, text, btn-orange\n}\ndouble {\nsmall-title, text, btn-red\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-green\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-green\n}\n}"
+  },
+  {
+    "image": "0D4A1E92-629E-4002-BE1D-42559D3F5569.png",
+    "image_id": 93,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-active, btn-inactive, btn-inactive\n}\nrow {\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-green\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-red\n}\n}"
+  },
+  {
+    "image": "51D1C4DD-75C7-4A8F-A886-8CFD832B4423.png",
+    "image_id": 589,
+    "caption": "header {\nbtn-active, btn-inactive\n}\nrow {\nsingle {\nsmall-title, text, btn-orange\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-green\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-red\n}\ndouble {\nsmall-title, text, btn-red\n}\n}"
+  },
+  {
+    "image": "E615E9D6-1C1B-4F84-A840-4570648D73BA.png",
+    "image_id": 1600,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-active\n}\nrow {\ndouble {\nsmall-title, text, btn-green\n}\ndouble {\nsmall-title, text, btn-red\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-green\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-orange\n}\n}"
+  },
+  {
+    "image": "385412B9-AB59-450C-8979-A07BFCBBD774.png",
+    "image_id": 397,
+    "caption": "header {\nbtn-active, btn-inactive, btn-inactive, btn-inactive\n}\nrow {\ndouble {\nsmall-title, text, btn-orange\n}\ndouble {\nsmall-title, text, btn-orange\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-red\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\n}"
+  },
+  {
+    "image": "FD310A86-FFB7-4A92-BEDD-5A1DA4B52045.png",
+    "image_id": 1732,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-active\n}\nrow {\nsingle {\nsmall-title, text, btn-green\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-orange\n}\ndouble {\nsmall-title, text, btn-orange\n}\n}"
+  },
+  {
+    "image": "4F672D7E-C100-4734-A702-3A4FBE35C752.png",
+    "image_id": 570,
+    "caption": "header {\nbtn-active, btn-inactive, btn-inactive\n}\nrow {\ndouble {\nsmall-title, text, btn-orange\n}\ndouble {\nsmall-title, text, btn-red\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-green\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-orange\n}\n}"
+  },
+  {
+    "image": "E0EC5CD5-84F6-4728-9A1D-67D86D2341D8.png",
+    "image_id": 1567,
+    "caption": "header {\nbtn-inactive, btn-active, btn-inactive, btn-inactive\n}\nrow {\nsingle {\nsmall-title, text, btn-orange\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-green\n}\ndouble {\nsmall-title, text, btn-orange\n}\n}"
+  },
+  {
+    "image": "D8BE54C2-E54F-46C6-80AD-DA631DDE7783.png",
+    "image_id": 1513,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-inactive, btn-inactive, btn-active\n}\nrow {\ndouble {\nsmall-title, text, btn-green\n}\ndouble {\nsmall-title, text, btn-green\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-orange\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-orange\n}\n}"
+  },
+  {
+    "image": "28715A0B-7D22-4F5E-9FC1-34A00BC1137E.png",
+    "image_id": 289,
+    "caption": "header {\nbtn-inactive, btn-active, btn-inactive\n}\nrow {\ndouble {\nsmall-title, text, btn-green\n}\ndouble {\nsmall-title, text, btn-orange\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-green\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-green\n}\ndouble {\nsmall-title, text, btn-red\n}\n}"
+  },
+  {
+    "image": "4D588082-35DC-4E8C-B061-350E26DF6607.png",
+    "image_id": 552,
+    "caption": "header {\nbtn-inactive, btn-active, btn-inactive, btn-inactive\n}\nrow {\nsingle {\nsmall-title, text, btn-red\n}\n}"
+  },
+  {
+    "image": "9A6BAF80-60D4-4101-A0BB-875BEAAEE460.png",
+    "image_id": 1091,
+    "caption": "header {\nbtn-active, btn-inactive\n}\nrow {\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-green\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-green\n}\ndouble {\nsmall-title, text, btn-green\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-red\n}\n}"
+  },
+  {
+    "image": "637121EB-107B-4E01-B004-FB73C8155E6E.png",
+    "image_id": 711,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-active\n}\nrow {\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-green\n}\n}"
+  },
+  {
+    "image": "7746E653-363C-44E8-BCA0-3C2195771304.png",
+    "image_id": 838,
+    "caption": "header {\nbtn-active, btn-inactive, btn-inactive\n}\nrow {\nsingle {\nsmall-title, text, btn-orange\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-orange\n}\ndouble {\nsmall-title, text, btn-red\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-red\n}\n}"
+  },
+  {
+    "image": "D2FB17E7-7C5C-45BB-8EB0-2D8714D01954.png",
+    "image_id": 1471,
+    "caption": "header {\nbtn-active, btn-inactive, btn-inactive, btn-inactive\n}\nrow {\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-green\n}\ndouble {\nsmall-title, text, btn-red\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-green\n}\n}"
+  },
+  {
+    "image": "1FE0BFB5-82F1-47CB-AECD-ABBC6B34CCC8.png",
+    "image_id": 228,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-active\n}\nrow {\ndouble {\nsmall-title, text, btn-red\n}\ndouble {\nsmall-title, text, btn-red\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-red\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-red\n}\n}"
+  },
+  {
+    "image": "33815746-55FC-47F6-BC76-55A45AD162D2.png",
+    "image_id": 368,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-active, btn-inactive, btn-inactive\n}\nrow {\ndouble {\nsmall-title, text, btn-green\n}\ndouble {\nsmall-title, text, btn-red\n}\n}"
+  },
+  {
+    "image": "65464850-0777-4513-9780-BC48F590FD2D.png",
+    "image_id": 721,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-inactive, btn-inactive, btn-active\n}\nrow {\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-green\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-orange\n}\ndouble {\nsmall-title, text, btn-red\n}\n}"
+  },
+  {
+    "image": "B686E87F-D0AC-453F-BB23-AB68E5F53FCE.png",
+    "image_id": 1287,
+    "caption": "header {\nbtn-active, btn-inactive, btn-inactive\n}\nrow {\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-green\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-red\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-red\n}\ndouble {\nsmall-title, text, btn-red\n}\n}"
+  },
+  {
+    "image": "2E2520D4-A7F2-4086-8773-7F8F3A110161.png",
+    "image_id": 335,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-active, btn-inactive\n}\nrow {\nsingle {\nsmall-title, text, btn-orange\n}\n}"
+  },
+  {
+    "image": "3B877BB1-735D-497E-B148-54ECC9809DDE.png",
+    "image_id": 426,
+    "caption": "header {\nbtn-active, btn-inactive\n}\nrow {\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-green\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-red\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\n}"
+  },
+  {
+    "image": "9811FBAE-19D1-4C2A-B77E-33DA1CF29E82.png",
+    "image_id": 1072,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-inactive, btn-active\n}\nrow {\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-orange\n}\n}"
+  },
+  {
+    "image": "D7254D7A-8928-4B17-A70E-52416A4F8148.png",
+    "image_id": 1503,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-active, btn-inactive, btn-inactive\n}\nrow {\ndouble {\nsmall-title, text, btn-red\n}\ndouble {\nsmall-title, text, btn-orange\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-green\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\n}"
+  },
+  {
+    "image": "06265836-7197-4CF0-9E9F-B7360B20B442.png",
+    "image_id": 49,
+    "caption": "header {\nbtn-active, btn-inactive\n}\nrow {\ndouble {\nsmall-title, text, btn-green\n}\ndouble {\nsmall-title, text, btn-green\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-green\n}\ndouble {\nsmall-title, text, btn-orange\n}\n}"
+  },
+  {
+    "image": "105C8152-35C8-4C87-9E12-CC4968357828.png",
+    "image_id": 116,
+    "caption": "header {\nbtn-inactive, btn-active\n}\nrow {\nsingle {\nsmall-title, text, btn-red\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-green\n}\ndouble {\nsmall-title, text, btn-orange\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-green\n}\n}"
+  },
+  {
+    "image": "DE2ABD0F-379C-4AA0-83B2-F3D7D9B163B5.png",
+    "image_id": 1549,
+    "caption": "header {\nbtn-inactive, btn-active, btn-inactive\n}\nrow {\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-green\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-orange\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-green\n}\n}"
+  },
+  {
+    "image": "A38766BD-B7DA-4DEC-A219-480A8D605F2B.png",
+    "image_id": 1149,
+    "caption": "header {\nbtn-active, btn-inactive, btn-inactive, btn-inactive, btn-inactive\n}\nrow {\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-red\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-orange\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-green\n}\ndouble {\nsmall-title, text, btn-orange\n}\n}"
+  },
+  {
+    "image": "E5D53F97-D3A2-4BB7-8107-6FB035F94722.png",
+    "image_id": 1599,
+    "caption": "header {\nbtn-inactive, btn-active, btn-inactive\n}\nrow {\nsingle {\nsmall-title, text, btn-orange\n}\n}"
+  },
+  {
+    "image": "4B12C02E-E854-41C3-B66E-06887B1505CB.png",
+    "image_id": 528,
+    "caption": "header {\nbtn-active, btn-inactive\n}\nrow {\nsingle {\nsmall-title, text, btn-red\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-orange\n}\ndouble {\nsmall-title, text, btn-red\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\n}"
+  },
+  {
+    "image": "30AFA7A3-0619-4EB4-B68C-0F70086E9189.png",
+    "image_id": 349,
+    "caption": "header {\nbtn-inactive, btn-active\n}\nrow {\nsingle {\nsmall-title, text, btn-orange\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-orange\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-red\n}\ndouble {\nsmall-title, text, btn-orange\n}\n}"
+  },
+  {
+    "image": "1E6255A0-AF73-4CF0-BF48-001738FEE484.png",
+    "image_id": 212,
+    "caption": "header {\nbtn-active, btn-inactive, btn-inactive, btn-inactive\n}\nrow {\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-red\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-red\n}\ndouble {\nsmall-title, text, btn-orange\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-green\n}\n}"
+  },
+  {
+    "image": "7DB70CF7-EE4A-42FD-B5C2-AF5ACA7D7473.png",
+    "image_id": 875,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-active, btn-inactive\n}\nrow {\ndouble {\nsmall-title, text, btn-green\n}\ndouble {\nsmall-title, text, btn-orange\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-orange\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-orange\n}\n}"
+  },
+  {
+    "image": "827E8BFD-FDBD-4540-8512-7366122E45A0.png",
+    "image_id": 914,
+    "caption": "header {\nbtn-inactive, btn-active, btn-inactive\n}\nrow {\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-green\n}\n}"
+  },
+  {
+    "image": "9A261A6D-E5E8-4533-B1D3-DB7EC392F7E9.png",
+    "image_id": 1086,
+    "caption": "header {\nbtn-inactive, btn-active\n}\nrow {\nsingle {\nsmall-title, text, btn-green\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-orange\n}\ndouble {\nsmall-title, text, btn-green\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-orange\n}\n}"
+  },
+  {
+    "image": "0831906C-14DB-42DB-A4B3-83947D980165.png",
+    "image_id": 66,
+    "caption": "header {\nbtn-active, btn-inactive\n}\nrow {\nsingle {\nsmall-title, text, btn-red\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-red\n}\ndouble {\nsmall-title, text, btn-green\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-red\n}\n}"
+  },
+  {
+    "image": "CD2B42EE-96CB-468D-807A-80F509F88893.png",
+    "image_id": 1436,
+    "caption": "header {\nbtn-active, btn-inactive, btn-inactive\n}\nrow {\nsingle {\nsmall-title, text, btn-orange\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-red\n}\ndouble {\nsmall-title, text, btn-orange\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-orange\n}\n}"
+  },
+  {
+    "image": "D355FB4D-ED25-4024-862E-98E5654D6098.png",
+    "image_id": 1472,
+    "caption": "header {\nbtn-active, btn-inactive, btn-inactive\n}\nrow {\ndouble {\nsmall-title, text, btn-red\n}\ndouble {\nsmall-title, text, btn-orange\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-orange\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\n}"
+  },
+  {
+    "image": "CE7442AA-AF3A-4390-B269-37885A24BDB3.png",
+    "image_id": 1447,
+    "caption": "header {\nbtn-active, btn-inactive, btn-inactive, btn-inactive\n}\nrow {\ndouble {\nsmall-title, text, btn-orange\n}\ndouble {\nsmall-title, text, btn-green\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-green\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-green\n}\n}"
+  },
+  {
+    "image": "1D3BE75B-3F8F-4004-A562-2B784AF8D1EC.png",
+    "image_id": 205,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-inactive, btn-active\n}\nrow {\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-orange\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-orange\n}\ndouble {\nsmall-title, text, btn-green\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-green\n}\n}"
+  },
+  {
+    "image": "BEEA2FA6-868E-4EB9-852B-732E1F753197.png",
+    "image_id": 1342,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-inactive, btn-inactive, btn-active\n}\nrow {\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-orange\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-green\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-orange\n}\ndouble {\nsmall-title, text, btn-red\n}\n}"
+  },
+  {
+    "image": "CD0C0585-986C-4DB7-989F-EADD714CEB52.png",
+    "image_id": 1435,
+    "caption": "header {\nbtn-inactive, btn-active, btn-inactive, btn-inactive\n}\nrow {\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-orange\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-orange\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-red\n}\ndouble {\nsmall-title, text, btn-green\n}\n}"
+  },
+  {
+    "image": "ABAAEB5B-2999-489D-A05C-55D3E65B9512.png",
+    "image_id": 1211,
+    "caption": "header {\nbtn-active, btn-inactive\n}\nrow {\ndouble {\nsmall-title, text, btn-orange\n}\ndouble {\nsmall-title, text, btn-red\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-red\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-green\n}\n}"
+  },
+  {
+    "image": "F586BD0C-E9DD-488E-AFB5-3512535B3E4D.png",
+    "image_id": 1683,
+    "caption": "header {\nbtn-active, btn-inactive, btn-inactive, btn-inactive, btn-inactive\n}\nrow {\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-red\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-red\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-green\n}\ndouble {\nsmall-title, text, btn-green\n}\n}"
+  },
+  {
+    "image": "D2BF3934-D191-42B7-8DF8-FD62F3072E22.png",
+    "image_id": 1469,
+    "caption": "header {\nbtn-active, btn-inactive\n}\nrow {\ndouble {\nsmall-title, text, btn-orange\n}\ndouble {\nsmall-title, text, btn-green\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-green\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-red\n}\n}"
+  },
+  {
+    "image": "06FEF995-3AC3-4ECC-8143-53A3167EB2B5.png",
+    "image_id": 56,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-inactive, btn-active\n}\nrow {\ndouble {\nsmall-title, text, btn-orange\n}\ndouble {\nsmall-title, text, btn-green\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-orange\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-green\n}\n}"
+  },
+  {
+    "image": "0D289613-FC00-4D1E-8259-E093EBBA39E9.png",
+    "image_id": 92,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-active\n}\nrow {\ndouble {\nsmall-title, text, btn-red\n}\ndouble {\nsmall-title, text, btn-green\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-green\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-orange\n}\n}"
+  },
+  {
+    "image": "501B6A70-83C9-46FD-B48D-D3AB6908B1FB.png",
+    "image_id": 575,
+    "caption": "header {\nbtn-active, btn-inactive, btn-inactive, btn-inactive, btn-inactive\n}\nrow {\ndouble {\nsmall-title, text, btn-green\n}\ndouble {\nsmall-title, text, btn-green\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-orange\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\n}"
+  },
+  {
+    "image": "0683E82F-D17D-4388-944B-33145540F54A.png",
+    "image_id": 50,
+    "caption": "header {\nbtn-inactive, btn-active, btn-inactive, btn-inactive, btn-inactive\n}\nrow {\ndouble {\nsmall-title, text, btn-green\n}\ndouble {\nsmall-title, text, btn-green\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-red\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-red\n}\n}"
+  },
+  {
+    "image": "7152B7B4-2251-4ECF-8FF7-A689E98344BD.png",
+    "image_id": 792,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-active\n}\nrow {\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-orange\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-green\n}\ndouble {\nsmall-title, text, btn-green\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-green\n}\n}"
+  },
+  {
+    "image": "EDF535A2-7E52-45ED-89D8-A7AFF455E4AC.png",
+    "image_id": 1650,
+    "caption": "header {\nbtn-active, btn-inactive, btn-inactive, btn-inactive, btn-inactive\n}\nrow {\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-orange\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-green\n}\ndouble {\nsmall-title, text, btn-green\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-red\n}\n}"
+  },
+  {
+    "image": "2BFB99B4-EA29-4F79-BF41-E46756689A58.png",
+    "image_id": 316,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-inactive, btn-active, btn-inactive\n}\nrow {\ndouble {\nsmall-title, text, btn-green\n}\ndouble {\nsmall-title, text, btn-green\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-orange\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-orange\n}\n}"
+  },
+  {
+    "image": "100D12D5-FBB3-4CB6-B67D-12939BED4954.png",
+    "image_id": 114,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-active\n}\nrow {\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-green\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-green\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-orange\n}\ndouble {\nsmall-title, text, btn-red\n}\n}"
+  },
+  {
+    "image": "DB7A4118-EF22-45BF-A23D-32C4100BD7AF.png",
+    "image_id": 1534,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-active\n}\nrow {\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-orange\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-red\n}\ndouble {\nsmall-title, text, btn-green\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-orange\n}\n}"
+  },
+  {
+    "image": "6310150F-5C22-4B02-83A0-7717FAFFC2D3.png",
+    "image_id": 707,
+    "caption": "header {\nbtn-active, btn-inactive\n}\nrow {\ndouble {\nsmall-title, text, btn-orange\n}\ndouble {\nsmall-title, text, btn-red\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-red\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-red\n}\n}"
+  },
+  {
+    "image": "D8FCA0C7-E94F-4530-8D90-E2DFE221617E.png",
+    "image_id": 1517,
+    "caption": "header {\nbtn-active, btn-inactive\n}\nrow {\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-green\n}\ndouble {\nsmall-title, text, btn-red\n}\n}"
+  },
+  {
+    "image": "249E79C5-73A6-47D8-85BF-C6BBDC9F3C5D.png",
+    "image_id": 264,
+    "caption": "header {\nbtn-active, btn-inactive, btn-inactive, btn-inactive\n}\nrow {\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\n}"
+  },
+  {
+    "image": "9510490B-39F9-4908-A20B-51D6FA2C42EF.png",
+    "image_id": 1045,
+    "caption": "header {\nbtn-inactive, btn-active\n}\nrow {\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-orange\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-orange\n}\n}"
+  },
+  {
+    "image": "0BAF3016-B777-45BB-98A2-DCED939F52F9.png",
+    "image_id": 81,
+    "caption": "header {\nbtn-inactive, btn-active\n}\nrow {\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-green\n}\n}"
+  },
+  {
+    "image": "1CA8C91D-931D-47D4-A1C2-84262A31F2C9.png",
+    "image_id": 202,
+    "caption": "header {\nbtn-inactive, btn-active, btn-inactive\n}\nrow {\ndouble {\nsmall-title, text, btn-green\n}\ndouble {\nsmall-title, text, btn-red\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-red\n}\n}"
+  },
+  {
+    "image": "AB65CF45-4FDA-4A8A-BC97-E5BE17A5BE1C.png",
+    "image_id": 1206,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-inactive, btn-active\n}\nrow {\ndouble {\nsmall-title, text, btn-red\n}\ndouble {\nsmall-title, text, btn-orange\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-orange\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-orange\n}\n}"
+  },
+  {
+    "image": "32C1D269-CE56-4116-88CB-2CACCE66AC3E.png",
+    "image_id": 364,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-active\n}\nrow {\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-red\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-green\n}\ndouble {\nsmall-title, text, btn-green\n}\n}"
+  },
+  {
+    "image": "234BAE99-9622-41C2-B9B1-8CD9B69C92D5.png",
+    "image_id": 249,
+    "caption": "header {\nbtn-active, btn-inactive, btn-inactive, btn-inactive, btn-inactive\n}\nrow {\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-green\n}\ndouble {\nsmall-title, text, btn-red\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-red\n}\n}"
+  },
+  {
+    "image": "355278CC-B263-4A1B-913B-9C2331988EEE.png",
+    "image_id": 381,
+    "caption": "header {\nbtn-active, btn-inactive, btn-inactive\n}\nrow {\nsingle {\nsmall-title, text, btn-green\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-green\n}\ndouble {\nsmall-title, text, btn-red\n}\n}"
+  },
+  {
+    "image": "5C65608B-F47F-4877-8922-E13E3D926253.png",
+    "image_id": 665,
+    "caption": "header {\nbtn-inactive, btn-active, btn-inactive\n}\nrow {\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-orange\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-orange\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-green\n}\ndouble {\nsmall-title, text, btn-orange\n}\n}"
+  },
+  {
+    "image": "4A0C7594-FFB9-4110-917A-406764BE516E.png",
+    "image_id": 522,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-active, btn-inactive\n}\nrow {\nsingle {\nsmall-title, text, btn-red\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-green\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-green\n}\ndouble {\nsmall-title, text, btn-green\n}\n}"
+  },
+  {
+    "image": "ABA0EE14-C8BB-4866-9966-246741CCB676.png",
+    "image_id": 1209,
+    "caption": "header {\nbtn-active, btn-inactive, btn-inactive\n}\nrow {\ndouble {\nsmall-title, text, btn-orange\n}\ndouble {\nsmall-title, text, btn-orange\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-green\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\n}"
+  },
+  {
+    "image": "FDF12CF5-A344-4573-A239-78AE47DBEE78.png",
+    "image_id": 1738,
+    "caption": "header {\nbtn-active, btn-inactive, btn-inactive, btn-inactive\n}\nrow {\ndouble {\nsmall-title, text, btn-green\n}\ndouble {\nsmall-title, text, btn-green\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-green\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-red\n}\n}"
+  },
+  {
+    "image": "CDD5ABA6-F931-4CE9-966F-8C51EC34581B.png",
+    "image_id": 1445,
+    "caption": "header {\nbtn-inactive, btn-active, btn-inactive\n}\nrow {\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-red\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-green\n}\ndouble {\nsmall-title, text, btn-orange\n}\n}"
+  },
+  {
+    "image": "6952EB62-2CF3-4BF7-9099-FCBBF92D1152.png",
+    "image_id": 748,
+    "caption": "header {\nbtn-inactive, btn-active\n}\nrow {\ndouble {\nsmall-title, text, btn-orange\n}\ndouble {\nsmall-title, text, btn-orange\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-green\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-green\n}\n}"
+  },
+  {
+    "image": "8C201DE8-9A2C-4CEB-A4F7-6DCB5D41DDB1.png",
+    "image_id": 989,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-active, btn-inactive, btn-inactive\n}\nrow {\nsingle {\nsmall-title, text, btn-green\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-red\n}\ndouble {\nsmall-title, text, btn-red\n}\n}"
+  },
+  {
+    "image": "30B9A5C6-FDF8-4C80-832B-40E8306EC4A4.png",
+    "image_id": 351,
+    "caption": "header {\nbtn-active, btn-inactive, btn-inactive\n}\nrow {\ndouble {\nsmall-title, text, btn-red\n}\ndouble {\nsmall-title, text, btn-green\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-red\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-red\n}\n}"
+  },
+  {
+    "image": "3243AD5F-4131-4112-B073-910AA191CBD9.png",
+    "image_id": 362,
+    "caption": "header {\nbtn-active, btn-inactive, btn-inactive, btn-inactive\n}\nrow {\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-orange\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-orange\n}\ndouble {\nsmall-title, text, btn-green\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-orange\n}\n}"
+  },
+  {
+    "image": "809CC940-9232-4F4E-88E5-3A3991F1D678.png",
+    "image_id": 897,
+    "caption": "header {\nbtn-active, btn-inactive\n}\nrow {\nsingle {\nsmall-title, text, btn-red\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-red\n}\ndouble {\nsmall-title, text, btn-green\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-orange\n}\n}"
+  },
+  {
+    "image": "DE4C3802-937F-4794-90F7-8F4F9C3E5EA3.png",
+    "image_id": 1551,
+    "caption": "header {\nbtn-active, btn-inactive\n}\nrow {\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-green\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-red\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-green\n}\ndouble {\nsmall-title, text, btn-red\n}\n}"
+  },
+  {
+    "image": "BEE54C73-5B59-449A-A0C3-52C426522DC1.png",
+    "image_id": 1341,
+    "caption": "header {\nbtn-inactive, btn-active, btn-inactive, btn-inactive\n}\nrow {\ndouble {\nsmall-title, text, btn-orange\n}\ndouble {\nsmall-title, text, btn-green\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-green\n}\ndouble {\nsmall-title, text, btn-green\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-orange\n}\n}"
+  },
+  {
+    "image": "BA6BE317-E026-475F-BEAD-0A8BD2DB4D24.png",
+    "image_id": 1309,
+    "caption": "header {\nbtn-inactive, btn-active\n}\nrow {\ndouble {\nsmall-title, text, btn-orange\n}\ndouble {\nsmall-title, text, btn-red\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-orange\n}\n}"
+  },
+  {
+    "image": "F78E2E92-52E2-4E3B-93B4-367D9CCE4A1C.png",
+    "image_id": 1696,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-active, btn-inactive\n}\nrow {\ndouble {\nsmall-title, text, btn-red\n}\ndouble {\nsmall-title, text, btn-orange\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-green\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-green\n}\n}"
+  },
+  {
+    "image": "2D03A211-BE23-43D3-9A9A-411DA34DB622.png",
+    "image_id": 327,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-inactive, btn-inactive, btn-active\n}\nrow {\ndouble {\nsmall-title, text, btn-red\n}\ndouble {\nsmall-title, text, btn-green\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-red\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-red\n}\n}"
+  },
+  {
+    "image": "2074F9FA-57D6-4C5B-A088-E5C57AFB1A92.png",
+    "image_id": 233,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-active, btn-inactive\n}\nrow {\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-orange\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-orange\n}\ndouble {\nsmall-title, text, btn-orange\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-green\n}\n}"
+  },
+  {
+    "image": "D9309768-E268-4597-B164-54129F8C618E.png",
+    "image_id": 1518,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-inactive, btn-active, btn-inactive\n}\nrow {\nsingle {\nsmall-title, text, btn-green\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-green\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-green\n}\ndouble {\nsmall-title, text, btn-red\n}\n}"
+  },
+  {
+    "image": "109ED3A8-BCBB-460A-BE0D-90B160E7CC47.png",
+    "image_id": 118,
+    "caption": "header {\nbtn-inactive, btn-active\n}\nrow {\ndouble {\nsmall-title, text, btn-red\n}\ndouble {\nsmall-title, text, btn-red\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-red\n}\ndouble {\nsmall-title, text, btn-green\n}\n}"
+  },
+  {
+    "image": "1BED7064-5591-4085-8319-76FA6E3CC306.png",
+    "image_id": 199,
+    "caption": "header {\nbtn-inactive, btn-active\n}\nrow {\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-green\n}\n}"
+  },
+  {
+    "image": "0CE73E18-575A-4A70-9E40-F000B250344F.png",
+    "image_id": 88,
+    "caption": "header {\nbtn-active, btn-inactive, btn-inactive, btn-inactive\n}\nrow {\ndouble {\nsmall-title, text, btn-orange\n}\ndouble {\nsmall-title, text, btn-red\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-red\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-green\n}\n}"
+  },
+  {
+    "image": "9B2F4DC6-105A-43EE-87D5-63DBB44F3F20.png",
+    "image_id": 1095,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-active\n}\nrow {\ndouble {\nsmall-title, text, btn-green\n}\ndouble {\nsmall-title, text, btn-green\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-orange\n}\n}"
+  },
+  {
+    "image": "F9EA7683-2309-4C61-992C-58616F3D3D82.png",
+    "image_id": 1717,
+    "caption": "header {\nbtn-inactive, btn-active\n}\nrow {\nsingle {\nsmall-title, text, btn-orange\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-red\n}\ndouble {\nsmall-title, text, btn-red\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-green\n}\n}"
+  },
+  {
+    "image": "2CCC65FF-05FC-473D-8907-B090E65674AD.png",
+    "image_id": 326,
+    "caption": "header {\nbtn-inactive, btn-active, btn-inactive\n}\nrow {\nsingle {\nsmall-title, text, btn-red\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-green\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-red\n}\ndouble {\nsmall-title, text, btn-red\n}\n}"
+  },
+  {
+    "image": "631A35C2-6608-4F70-87E5-49481BBADC42.png",
+    "image_id": 708,
+    "caption": "header {\nbtn-inactive, btn-active\n}\nrow {\ndouble {\nsmall-title, text, btn-green\n}\ndouble {\nsmall-title, text, btn-red\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-orange\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-orange\n}\n}"
+  },
+  {
+    "image": "3086CE0C-9C57-46D6-9E43-49EF4C3FDA03.png",
+    "image_id": 348,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-active\n}\nrow {\nsingle {\nsmall-title, text, btn-orange\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-green\n}\ndouble {\nsmall-title, text, btn-orange\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-green\n}\n}"
+  },
+  {
+    "image": "1EACEE7F-264D-4FB7-9A19-13122A6FD4E1.png",
+    "image_id": 215,
+    "caption": "header {\nbtn-active, btn-inactive\n}\nrow {\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-orange\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-orange\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-green\n}\ndouble {\nsmall-title, text, btn-red\n}\n}"
+  },
+  {
+    "image": "2FD24FA0-0FF3-44BF-A90A-DC68A81A14DE.png",
+    "image_id": 344,
+    "caption": "header {\nbtn-active, btn-inactive, btn-inactive\n}\nrow {\ndouble {\nsmall-title, text, btn-red\n}\ndouble {\nsmall-title, text, btn-red\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-orange\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-orange\n}\n}"
+  },
+  {
+    "image": "1F4D3508-2479-4D8A-B5F0-92CF690BD1AE.png",
+    "image_id": 222,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-active, btn-inactive, btn-inactive\n}\nrow {\nsingle {\nsmall-title, text, btn-green\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-green\n}\n}"
+  },
+  {
+    "image": "8CB06373-D067-45D0-8853-7E713182E630.png",
+    "image_id": 991,
+    "caption": "header {\nbtn-active, btn-inactive, btn-inactive\n}\nrow {\nsingle {\nsmall-title, text, btn-orange\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-green\n}\ndouble {\nsmall-title, text, btn-green\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\n}"
+  },
+  {
+    "image": "01E3948F-2FD3-45E3-AB0A-0290BF5B7458.png",
+    "image_id": 17,
+    "caption": "header {\nbtn-active, btn-inactive\n}\nrow {\ndouble {\nsmall-title, text, btn-red\n}\ndouble {\nsmall-title, text, btn-orange\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-orange\n}\n}"
+  },
+  {
+    "image": "B8E953E0-5998-4B3C-A252-C81760B0D180.png",
+    "image_id": 1301,
+    "caption": "header {\nbtn-active, btn-inactive, btn-inactive\n}\nrow {\ndouble {\nsmall-title, text, btn-red\n}\ndouble {\nsmall-title, text, btn-green\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-green\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-green\n}\n}"
+  },
+  {
+    "image": "453FB0F6-CFD2-40AE-805E-C723F05516E3.png",
+    "image_id": 488,
+    "caption": "header {\nbtn-active, btn-inactive, btn-inactive\n}\nrow {\ndouble {\nsmall-title, text, btn-red\n}\ndouble {\nsmall-title, text, btn-green\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-orange\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-green\n}\n}"
+  },
+  {
+    "image": "49F407D7-57CC-42FE-8738-0CA1C805CD02.png",
+    "image_id": 521,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-inactive, btn-active, btn-inactive\n}\nrow {\nsingle {\nsmall-title, text, btn-green\n}\n}"
+  },
+  {
+    "image": "F916A3DF-CDF3-4CD1-B188-20DEC1D261FC.png",
+    "image_id": 1706,
+    "caption": "header {\nbtn-active, btn-inactive, btn-inactive\n}\nrow {\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-orange\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-orange\n}\ndouble {\nsmall-title, text, btn-green\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-red\n}\n}"
+  },
+  {
+    "image": "F1850A54-183B-4784-8441-1E9D9F16E332.png",
+    "image_id": 1662,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-active, btn-inactive\n}\nrow {\nsingle {\nsmall-title, text, btn-red\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-orange\n}\ndouble {\nsmall-title, text, btn-red\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-red\n}\n}"
+  },
+  {
+    "image": "D745C87A-EE39-4FFC-AE5B-22954B947080.png",
+    "image_id": 1505,
+    "caption": "header {\nbtn-active, btn-inactive, btn-inactive, btn-inactive, btn-inactive\n}\nrow {\nsingle {\nsmall-title, text, btn-green\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-red\n}\n}"
+  },
+  {
+    "image": "A7DF8363-7B30-4B31-B9EB-7A81CA3E2CDB.png",
+    "image_id": 1179,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-active, btn-inactive\n}\nrow {\ndouble {\nsmall-title, text, btn-green\n}\ndouble {\nsmall-title, text, btn-red\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-orange\n}\n}"
+  },
+  {
+    "image": "F45323B1-EAA1-4971-B430-6265C249752B.png",
+    "image_id": 1674,
+    "caption": "header {\nbtn-active, btn-inactive, btn-inactive\n}\nrow {\ndouble {\nsmall-title, text, btn-green\n}\ndouble {\nsmall-title, text, btn-green\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-red\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-green\n}\n}"
+  },
+  {
+    "image": "112AFA4C-B5C8-422D-9778-8C34E6ED28C8.png",
+    "image_id": 122,
+    "caption": "header {\nbtn-inactive, btn-active\n}\nrow {\ndouble {\nsmall-title, text, btn-green\n}\ndouble {\nsmall-title, text, btn-green\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-green\n}\ndouble {\nsmall-title, text, btn-green\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-orange\n}\n}"
+  },
+  {
+    "image": "7819D3A5-01C7-49BE-B177-FA5C037FB8F3.png",
+    "image_id": 844,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-active, btn-inactive\n}\nrow {\ndouble {\nsmall-title, text, btn-orange\n}\ndouble {\nsmall-title, text, btn-orange\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-red\n}\n}"
+  },
+  {
+    "image": "3D561C0D-6914-4E66-884F-D91812F94986.png",
+    "image_id": 447,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-inactive, btn-active\n}\nrow {\nsingle {\nsmall-title, text, btn-green\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-orange\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-orange\n}\ndouble {\nsmall-title, text, btn-green\n}\n}"
+  },
+  {
+    "image": "6C3B637B-28BB-45A9-8A8E-2E8E1E336DE9.png",
+    "image_id": 761,
+    "caption": "header {\nbtn-inactive, btn-active, btn-inactive, btn-inactive, btn-inactive\n}\nrow {\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-orange\n}\n}"
+  },
+  {
+    "image": "CD3AAEE7-A4A9-4B14-8282-1CCDD6FF13B6.png",
+    "image_id": 1437,
+    "caption": "header {\nbtn-inactive, btn-active, btn-inactive, btn-inactive\n}\nrow {\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-orange\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-orange\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-orange\n}\ndouble {\nsmall-title, text, btn-green\n}\n}"
+  },
+  {
+    "image": "67740CD8-95C4-4F7F-BA0A-3588D71C7A3C.png",
+    "image_id": 739,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-inactive, btn-active, btn-inactive\n}\nrow {\ndouble {\nsmall-title, text, btn-green\n}\ndouble {\nsmall-title, text, btn-red\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-orange\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\n}"
+  },
+  {
+    "image": "479C5349-0815-4D4A-B5FC-B22B3705C5A9.png",
+    "image_id": 506,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-active\n}\nrow {\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-orange\n}\n}"
+  },
+  {
+    "image": "57021B2D-9959-4217-8B8F-17AC61772672.png",
+    "image_id": 627,
+    "caption": "header {\nbtn-inactive, btn-active, btn-inactive, btn-inactive, btn-inactive\n}\nrow {\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-red\n}\ndouble {\nsmall-title, text, btn-green\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-orange\n}\n}"
+  },
+  {
+    "image": "EAA478CB-2761-483F-A43E-F0B46A0C5F61.png",
+    "image_id": 1628,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-active, btn-inactive\n}\nrow {\ndouble {\nsmall-title, text, btn-orange\n}\ndouble {\nsmall-title, text, btn-red\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-orange\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-orange\n}\n}"
+  },
+  {
+    "image": "EDF8AAF7-1813-4557-B1B1-2F12FEDA7E39.png",
+    "image_id": 1651,
+    "caption": "header {\nbtn-inactive, btn-active\n}\nrow {\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-orange\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-orange\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-orange\n}\ndouble {\nsmall-title, text, btn-orange\n}\n}"
+  },
+  {
+    "image": "4296CE2A-F909-4A21-BDDF-3B483964E617.png",
+    "image_id": 469,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-active, btn-inactive, btn-inactive\n}\nrow {\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-red\n}\ndouble {\nsmall-title, text, btn-red\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-orange\n}\n}"
+  },
+  {
+    "image": "F53AE058-8851-4BA5-B8F9-22F4751B1202.png",
+    "image_id": 1680,
+    "caption": "header {\nbtn-inactive, btn-active\n}\nrow {\nsingle {\nsmall-title, text, btn-orange\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-green\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-red\n}\ndouble {\nsmall-title, text, btn-red\n}\n}"
+  },
+  {
+    "image": "FD1D6CE9-C7AE-43C7-8132-4859237203DF.png",
+    "image_id": 1731,
+    "caption": "header {\nbtn-inactive, btn-active, btn-inactive, btn-inactive, btn-inactive\n}\nrow {\ndouble {\nsmall-title, text, btn-red\n}\ndouble {\nsmall-title, text, btn-orange\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-orange\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\n}"
+  },
+  {
+    "image": "71CB069A-41BE-409F-9B9B-9CC036F99FC1.png",
+    "image_id": 800,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-inactive, btn-inactive, btn-active\n}\nrow {\ndouble {\nsmall-title, text, btn-red\n}\ndouble {\nsmall-title, text, btn-red\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-red\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\n}"
+  },
+  {
+    "image": "CF53AD29-3BF0-4B9E-A110-C9392BBF9BA4.png",
+    "image_id": 1452,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-inactive, btn-active, btn-inactive\n}\nrow {\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-orange\n}\n}"
+  },
+  {
+    "image": "559E7FA0-E9C3-45AB-88E5-31BB1C27B543.png",
+    "image_id": 610,
+    "caption": "header {\nbtn-active, btn-inactive, btn-inactive\n}\nrow {\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-orange\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-green\n}\n}"
+  },
+  {
+    "image": "EA9DCCF6-1389-4019-9F13-1AD784825317.png",
+    "image_id": 1627,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-inactive, btn-active\n}\nrow {\nsingle {\nsmall-title, text, btn-red\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-green\n}\ndouble {\nsmall-title, text, btn-red\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-green\n}\n}"
+  },
+  {
+    "image": "E2F5D9F1-159D-4641-9AC5-0C4E6EE73082.png",
+    "image_id": 1583,
+    "caption": "header {\nbtn-active, btn-inactive, btn-inactive\n}\nrow {\nsingle {\nsmall-title, text, btn-green\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-green\n}\ndouble {\nsmall-title, text, btn-red\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-green\n}\n}"
+  },
+  {
+    "image": "639A412A-16AB-46D4-A91E-018018DA0049.png",
+    "image_id": 713,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-inactive, btn-inactive, btn-active\n}\nrow {\nsingle {\nsmall-title, text, btn-orange\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-orange\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-red\n}\ndouble {\nsmall-title, text, btn-red\n}\n}"
+  },
+  {
+    "image": "AB94F798-DE63-42EF-BBE6-DCA1FF57996A.png",
+    "image_id": 1208,
+    "caption": "header {\nbtn-active, btn-inactive\n}\nrow {\nsingle {\nsmall-title, text, btn-green\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-orange\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-red\n}\ndouble {\nsmall-title, text, btn-orange\n}\n}"
+  },
+  {
+    "image": "35D4728C-C9A6-4EF3-9138-E7538375F201.png",
+    "image_id": 385,
+    "caption": "header {\nbtn-inactive, btn-active, btn-inactive, btn-inactive\n}\nrow {\ndouble {\nsmall-title, text, btn-red\n}\ndouble {\nsmall-title, text, btn-red\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-green\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-orange\n}\n}"
+  },
+  {
+    "image": "50C81911-47A8-4A74-9E88-EC9288A10B62.png",
+    "image_id": 582,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-active, btn-inactive, btn-inactive\n}\nrow {\nsingle {\nsmall-title, text, btn-green\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-green\n}\ndouble {\nsmall-title, text, btn-green\n}\n}"
+  },
+  {
+    "image": "5A6471C8-4ABA-47FF-949E-F796540DF448.png",
+    "image_id": 654,
+    "caption": "header {\nbtn-inactive, btn-active, btn-inactive\n}\nrow {\ndouble {\nsmall-title, text, btn-orange\n}\ndouble {\nsmall-title, text, btn-orange\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-green\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-green\n}\n}"
+  },
+  {
+    "image": "0877A39E-7D17-4C49-85E4-32FA784AB116.png",
+    "image_id": 69,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-inactive, btn-inactive, btn-active\n}\nrow {\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-red\n}\ndouble {\nsmall-title, text, btn-orange\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-orange\n}\n}"
+  },
+  {
+    "image": "50723564-51C0-4641-A9CE-2C1E6F5C1C18.png",
+    "image_id": 578,
+    "caption": "header {\nbtn-active, btn-inactive, btn-inactive, btn-inactive\n}\nrow {\nsingle {\nsmall-title, text, btn-green\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-orange\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-orange\n}\n}"
+  },
+  {
+    "image": "2BE88645-6FCA-4DF2-B1CA-BB6A1097135C.png",
+    "image_id": 314,
+    "caption": "header {\nbtn-active, btn-inactive\n}\nrow {\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-green\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-orange\n}\ndouble {\nsmall-title, text, btn-green\n}\n}"
+  },
+  {
+    "image": "78938E23-C7AD-49AB-BFE6-525D5CD0706E.png",
+    "image_id": 847,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-inactive, btn-active, btn-inactive\n}\nrow {\nsingle {\nsmall-title, text, btn-green\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-orange\n}\ndouble {\nsmall-title, text, btn-orange\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-green\n}\n}"
+  },
+  {
+    "image": "83C1E7CA-F6CB-40B9-B1AB-6705990C977E.png",
+    "image_id": 922,
+    "caption": "header {\nbtn-inactive, btn-active, btn-inactive, btn-inactive\n}\nrow {\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-red\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-green\n}\ndouble {\nsmall-title, text, btn-green\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-orange\n}\n}"
+  },
+  {
+    "image": "1040D773-A4FE-4695-B375-620F2F2318A8.png",
+    "image_id": 115,
+    "caption": "header {\nbtn-inactive, btn-active\n}\nrow {\nsingle {\nsmall-title, text, btn-green\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-green\n}\ndouble {\nsmall-title, text, btn-orange\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-green\n}\n}"
+  },
+  {
+    "image": "046B8D3B-0150-48A7-8D91-E76F2B7FC87A.png",
+    "image_id": 40,
+    "caption": "header {\nbtn-active, btn-inactive, btn-inactive, btn-inactive\n}\nrow {\ndouble {\nsmall-title, text, btn-orange\n}\ndouble {\nsmall-title, text, btn-orange\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-green\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-green\n}\n}"
+  },
+  {
+    "image": "3744C68A-634C-4A33-93A3-32DABDC2B8D7.png",
+    "image_id": 392,
+    "caption": "header {\nbtn-active, btn-inactive, btn-inactive\n}\nrow {\nsingle {\nsmall-title, text, btn-red\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-orange\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-orange\n}\ndouble {\nsmall-title, text, btn-green\n}\n}"
+  },
+  {
+    "image": "533A7F8F-D883-4D6C-A0BC-91AA7FA90E8F.png",
+    "image_id": 597,
+    "caption": "header {\nbtn-active, btn-inactive, btn-inactive\n}\nrow {\ndouble {\nsmall-title, text, btn-red\n}\ndouble {\nsmall-title, text, btn-orange\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-orange\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-orange\n}\n}"
+  },
+  {
+    "image": "A930EF50-9657-4A07-8619-E6F55B184681.png",
+    "image_id": 1189,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-active\n}\nrow {\ndouble {\nsmall-title, text, btn-red\n}\ndouble {\nsmall-title, text, btn-red\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-orange\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-orange\n}\n}"
+  },
+  {
+    "image": "967A76E0-0B09-48D6-AD4A-5E40CE51FEFD.png",
+    "image_id": 1058,
+    "caption": "header {\nbtn-active, btn-inactive, btn-inactive, btn-inactive\n}\nrow {\ndouble {\nsmall-title, text, btn-red\n}\ndouble {\nsmall-title, text, btn-red\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-orange\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-green\n}\n}"
+  },
+  {
+    "image": "35ADB62D-15B8-44A5-8F14-FCD776D5B845.png",
+    "image_id": 383,
+    "caption": "header {\nbtn-active, btn-inactive, btn-inactive, btn-inactive\n}\nrow {\ndouble {\nsmall-title, text, btn-green\n}\ndouble {\nsmall-title, text, btn-green\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-orange\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-orange\n}\ndouble {\nsmall-title, text, btn-red\n}\n}"
+  },
+  {
+    "image": "5050FFC1-D046-4D5C-BA6D-7271215FFDC6.png",
+    "image_id": 577,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-inactive, btn-active\n}\nrow {\nsingle {\nsmall-title, text, btn-green\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-green\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-red\n}\ndouble {\nsmall-title, text, btn-orange\n}\n}"
+  },
+  {
+    "image": "B6D69208-F2B0-486F-99A9-6B6875F759E6.png",
+    "image_id": 1288,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-inactive, btn-active\n}\nrow {\ndouble {\nsmall-title, text, btn-red\n}\ndouble {\nsmall-title, text, btn-green\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-red\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-orange\n}\n}"
+  },
+  {
+    "image": "9D55B368-417A-48FD-B161-758784C96EB6.png",
+    "image_id": 1111,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-active\n}\nrow {\nsingle {\nsmall-title, text, btn-orange\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-red\n}\ndouble {\nsmall-title, text, btn-orange\n}\n}"
+  },
+  {
+    "image": "7EFBB693-B471-45CF-AE96-33A17BC016F1.png",
+    "image_id": 886,
+    "caption": "header {\nbtn-active, btn-inactive, btn-inactive, btn-inactive, btn-inactive\n}\nrow {\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-orange\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-red\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-red\n}\ndouble {\nsmall-title, text, btn-orange\n}\n}"
+  },
+  {
+    "image": "D11B3D7E-169C-415F-8703-38311AF545E1.png",
+    "image_id": 1465,
+    "caption": "header {\nbtn-active, btn-inactive\n}\nrow {\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-red\n}\ndouble {\nsmall-title, text, btn-orange\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-orange\n}\n}"
+  },
+  {
+    "image": "43DDF132-B905-4A4C-B577-0E77A654F2AF.png",
+    "image_id": 477,
+    "caption": "header {\nbtn-active, btn-inactive, btn-inactive, btn-inactive, btn-inactive\n}\nrow {\ndouble {\nsmall-title, text, btn-red\n}\ndouble {\nsmall-title, text, btn-green\n}\n}"
+  },
+  {
+    "image": "D5258C77-F096-4B7F-90BE-2307EC3DFBE4.png",
+    "image_id": 1484,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-active, btn-inactive, btn-inactive\n}\nrow {\nsingle {\nsmall-title, text, btn-orange\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-red\n}\ndouble {\nsmall-title, text, btn-red\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-green\n}\n}"
+  },
+  {
+    "image": "C2DD8BF8-7444-4AB9-9CDB-B74839249427.png",
+    "image_id": 1367,
+    "caption": "header {\nbtn-inactive, btn-active\n}\nrow {\ndouble {\nsmall-title, text, btn-green\n}\ndouble {\nsmall-title, text, btn-green\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-orange\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-red\n}\n}"
+  },
+  {
+    "image": "1E5D1FFD-6212-4540-A67C-37B9A97747A8.png",
+    "image_id": 211,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-inactive, btn-active\n}\nrow {\ndouble {\nsmall-title, text, btn-orange\n}\ndouble {\nsmall-title, text, btn-red\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-red\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-orange\n}\n}"
+  },
+  {
+    "image": "AF00522B-B2E9-4B2A-83C4-70AF61C04FC1.png",
+    "image_id": 1238,
+    "caption": "header {\nbtn-inactive, btn-active\n}\nrow {\nsingle {\nsmall-title, text, btn-orange\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-red\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-green\n}\ndouble {\nsmall-title, text, btn-orange\n}\n}"
+  },
+  {
+    "image": "58B664F5-3714-40A8-A7F3-19338478666B.png",
+    "image_id": 637,
+    "caption": "header {\nbtn-inactive, btn-active, btn-inactive\n}\nrow {\ndouble {\nsmall-title, text, btn-red\n}\ndouble {\nsmall-title, text, btn-green\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-orange\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-green\n}\n}"
+  },
+  {
+    "image": "7A307288-ABC1-40E3-AA0B-939F5812111C.png",
+    "image_id": 855,
+    "caption": "header {\nbtn-inactive, btn-active, btn-inactive, btn-inactive\n}\nrow {\nsingle {\nsmall-title, text, btn-orange\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-orange\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-orange\n}\ndouble {\nsmall-title, text, btn-green\n}\n}"
+  },
+  {
+    "image": "56BD3B56-ECBF-4FFE-A563-C28981BDB123.png",
+    "image_id": 624,
+    "caption": "header {\nbtn-inactive, btn-active\n}\nrow {\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-green\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-orange\n}\ndouble {\nsmall-title, text, btn-green\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-orange\n}\n}"
+  },
+  {
+    "image": "C646559D-E949-4E3F-865D-F58F5A64FEC7.png",
+    "image_id": 1382,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-inactive, btn-active\n}\nrow {\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-orange\n}\n}\nrow {\ndouble {\nsmall-title, text, btn-red\n}\ndouble {\nsmall-title, text, btn-green\n}\n}"
+  },
+  {
+    "image": "3C583DE4-E7AE-4814-A668-84AC9D752074.png",
+    "image_id": 437,
+    "caption": "header {\nbtn-inactive, btn-active, btn-inactive\n}\nrow {\ndouble {\nsmall-title, text, btn-orange\n}\ndouble {\nsmall-title, text, btn-red\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-orange\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-red\n}\n}"
+  },
+  {
+    "image": "B5744542-E1F1-4AFC-9818-E234F6B2D0BB.png",
+    "image_id": 1282,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-active\n}\nrow {\ndouble {\nsmall-title, text, btn-orange\n}\ndouble {\nsmall-title, text, btn-orange\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-red\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-orange\n}\n}"
+  },
+  {
+    "image": "0BA2A4B4-4193-4506-8818-31564225EF8B.png",
+    "image_id": 80,
+    "caption": "header {\nbtn-inactive, btn-inactive, btn-active, btn-inactive, btn-inactive\n}\nrow {\ndouble {\nsmall-title, text, btn-green\n}\ndouble {\nsmall-title, text, btn-green\n}\n}\nrow {\nsingle {\nsmall-title, text, btn-orange\n}\n}\nrow {\nquadruple {\nsmall-title, text, btn-orange\n}\nquadruple {\nsmall-title, text, btn-green\n}\nquadruple {\nsmall-title, text, btn-red\n}\nquadruple {\nsmall-title, text, btn-green\n}\n}"
+  }
+]
