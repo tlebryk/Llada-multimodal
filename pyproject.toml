@@ -13,6 +13,7 @@ dependencies = [
     "timm==0.9.*",
     "torchvision>=0.22.0",
     "transformers==4.38.2",
+    "wandb>=0.19.11",
 ]
 
 [dependency-groups]

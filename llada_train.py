@@ -21,7 +21,7 @@ from llada import (
     get_num_transfer_tokens,
 )
 import pandas as pd
-
+import wandb
 from typing import List, Dict, Any, Optional
 
 
@@ -516,7 +516,7 @@ def main():
             # Log inferences as wandb artifacts
             if not running_in_ipython_family():
                 wandb_run = accel.get_tracker("wandb", unwrap=True)
-                inference_artifact = wandb_run.Artifact(
+                inference_artifact = wandb.Artifact(
                     f"inference_epoch_{epoch+1}", type="text"
                 )
                 inference_artifact.add_file(
@@ -545,7 +545,7 @@ def main():
                 # Log as wandb artifact
                 if not running_in_ipython_family():
                     wandb_run = accel.get_tracker("wandb", unwrap=True)
-                    checkpoint_artifact = wandb_run.Artifact(
+                    checkpoint_artifact = wandb.Artifact(
                         f"model_checkpoint_epoch_{epoch+1}", type="model"
                     )
                     checkpoint_artifact.add_file(checkpoint_path)
@@ -568,7 +568,7 @@ def main():
         # Log as wandb artifact
         if not running_in_ipython_family():
             wandb_run = accel.get_tracker("wandb", unwrap=True)
-            final_model_artifact = wandb_run.Artifact("final_model", type="model")
+            final_model_artifact = wandb.Artifact("final_model", type="model")
             final_model_artifact.add_file(final_model_path)
             wandb_run.log_artifact(final_model_artifact)
 
