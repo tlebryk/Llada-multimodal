@@ -6,25 +6,36 @@ import llada_train
 
 
 # Point to the folder that contains your Dockerfile
-image = (
-    modal.Image.from_dockerfile(
-        path="./Dockerfile",  # root of your repo
-        # dockerfile="Dockerfile",  # explicit for clarity; default is "Dockerfile"
-    )
-    .add_local_python_source("llada_train")
-    .add_local_python_source("llada")
-)
 # image = (
-#     modal.Image.debian_slim(python_version="3.12")
-#     .apt_install("unzip zip")
-#     .pip_install("transformers==4.38.2 open-clip-torch==2.*  timm==0.9.* torchvision einops accelerate")
-#     .run_commands(
-#         """wget https://raw.githubusercontent.com/tonybeltramelli/pix2code/master/datasets/pix2code_datasets.{zip,z{01..09}} && /
-#         pix2code_datasets.{zip,z{01..09}} && /
-#         zip -F pix2code_datasets.zip --out datasets.zip && /
-#         unzip datasets.zip"""
+#     modal.Image.from_dockerfile(
+#         path="./Dockerfile",  # root of your repo
+#         # dockerfile="Dockerfile",  # explicit for clarity; default is "Dockerfile"
 #     )
+#     .run_commands(". /app/.venv/bin/activate")
+#     .add_local_python_source("llada_train")
+#     .add_local_python_source("llada")
 # )
+image = (
+    modal.Image.debian_slim(python_version="3.12")
+    .pip_install(
+        "accelerate>=1.6.0",
+        "einops>=0.8.1",
+        "modal>=0.75.7",
+        "open-clip-torch==2.*",
+        "pandas>=2.2.3",
+        "timm==0.9.*",
+        "torchvision>=0.22.0",
+        "transformers==4.38.2",
+        "wandb>=0.19.11",
+    )
+    .add_local_dir("datasets/web/all_data", remote_path="/root/datasets/web/all_data")
+    .add_local_dir("configs", remote_path="/root/configs")
+    .add_local_file("train.json", remote_path="/root/train.json")
+    .add_local_file("val.json", remote_path="/root/val.json")
+    .add_local_file("test.json", remote_path="/root/test.json")
+    .add_local_python_source("llada", "llada_train")
+)
+
 
 app = modal.App("llada-train", image=image)
 
@@ -32,8 +43,35 @@ app = modal.App("llada-train", image=image)
 @app.function(
     image=image,
     secrets=[modal.Secret.from_name("wandb-secret")],  # <-- injects env var
-    gpu="T4",
+    gpu="A100",
     timeout=60 * 60 * 6,
 )
 def train():
     llada_train.main()
+
+
+@app.function(
+    image=image,
+    secrets=[modal.Secret.from_name("wandb-secret")],  # <-- injects env var
+    gpu="A100:2",
+    timeout=60 * 60 * 6,
+)
+def accelerate_train():
+    subprocess.run(
+        [
+            "accelerate",
+            "launch",
+            "--config_file",
+            "configs/accelerate_config.yaml",
+            "--multi_gpu",
+            "--num_processes",
+            "2",  # Add this line to specify process count
+            "llada_train.py",
+        ],
+        check=True,
+    )
+
+
+@app.local_entrypoint()
+def main(config_path=None):
+    train.remote(config_path)

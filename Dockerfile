@@ -20,7 +20,7 @@ RUN uv sync --frozen --no-install-project --no-dev
 
 COPY . /app
 RUN uv sync --frozen --no-dev
-
+ENV PATH="/app/.venv/bin:$PATH"
 CMD ["uv", "run", "llada_train.py"]
 
 

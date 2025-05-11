@@ -3,6 +3,7 @@ from transformers import AutoModel
 import torch.nn as nn, torch
 import os
 import time
+import yaml
 from datetime import datetime
 
 from transformers import AdamW, get_cosine_schedule_with_warmup
@@ -22,6 +23,7 @@ from llada import (
 )
 import pandas as pd
 import wandb
+import argparse
 from typing import List, Dict, Any, Optional
 
 
@@ -46,30 +48,121 @@ def running_in_ipython_family() -> bool:
         return False
 
 
-tokenizer = AutoTokenizer.from_pretrained(
-    "GSAI-ML/LLaDA-8B-Instruct", trust_remote_code=True
-)
+def load_config(config_path=None):
+    """
+    Load configuration from a YAML file. If no path is specified, use the default configuration
+    from 'configs/default.yaml'.
+
+    Args:
+        config_path (str, optional): Path to the YAML configuration file. Defaults to None.
+
+    Returns:
+        dict: Configuration parameters
+    """
+    # Set the default config path
+    default_config_path = "configs/default.yaml"
+
+    # If no config path is provided, use the default
+    if config_path is None:
+        config_path = default_config_path
+
+    try:
+        with open(config_path, "r") as f:
+            config = yaml.safe_load(f)
+            return config
+    except FileNotFoundError:
+        if config_path == default_config_path:
+            print(f"Default config file not found at {default_config_path}.")
+            print("Creating default config directory and file...")
+
+            # Ensure the configs directory exists
+            os.makedirs(os.path.dirname(default_config_path), exist_ok=True)
+
+            # Create the default config file
+            # save_default_config(default_config_path)
+
+            # Now load it
+            with open(default_config_path, "r") as f:
+                return yaml.safe_load(f)
+        else:
+            print(f"Config file not found at {config_path}.")
+            print(f"Using default config from {default_config_path} instead.")
+            return load_config(None)  # Recursively try to load the default config
+    except Exception as e:
+        print(f"Error loading configuration file: {e}")
+        if config_path != default_config_path:
+            print(
+                f"Attempting to use default config from {default_config_path} instead."
+            )
+            return load_config(None)  # Try to load the default config
+        else:
+            raise Exception(f"Failed to load both specified and default config: {e}")
+
+
+# def save_default_config(file_path="configs/default.yaml"):
+#     """
+#     Save the default configuration to a YAML file for users to customize.
+
+#     Args:
+#         file_path (str, optional): Path to save the default configuration.
+#                                   Defaults to "configs/default.yaml".
+#     """
+#     # Ensure directory exists
+#     os.makedirs(os.path.dirname(file_path), exist_ok=True)
+
+#     # Default configuration
+#     default_config = {
+#         # Model parameters
+#         "model_path": "GSAI-ML/LLaDA-8B-Instruct",
+#         "system_prompt": "You are an assistant that converts UI screenshots to pix2code DSL.",
+#         "user_prompt": "Below is a GUI image. Produce the DSL that recreates it.",
+#         # Training parameters
+#         "batch_size": 2,
+#         "num_epochs": 3,
+#         "learning_rate_proj": 5e-5,
+#         "learning_rate_lm": 1e-5,
+#         "mixed_precision": "bf16",
+#         "save_epochs": 1,
+#         "validate_every": 1,
+#         "warmup_ratio": 0.05,  # For scheduler
+#         # Optimizer parameters
+#         "optimizer": {"betas": [0.9, 0.95], "weight_decay": 0.1},
+#         # Generation parameters
+#         "generation": {"steps": 64, "gen_length": 256, "block_length": 32},
+#         # Model and data paths
+#         "model_name": "llada-pix2code",
+#         "log_dir": "llada_checkpoints",
+#         "img_base_dir": "datasets/web/all_data/",
+#         "train_data": "train.json",
+#         "val_data": "val.json",
+#         # Logging settings
+#         "wandb_entity": "tlebryk-harvard-university",
+#         "log_steps": 50,  # Log metrics every X steps
+#         # Dataloader settings
+#         "num_workers": 4,
+#     }
+
+#     with open(file_path, "w") as f:
+#         yaml.dump(default_config, f, default_flow_style=False)
+
+#     print(f"Default configuration saved to {file_path}")
+#     return default_config
+
+
+tokenizer = None  # Will be initialized in main()
 
 N_PATCH = 76  # ViT-L/14 gives 1 + 76 tokens; we drop CLS
-PAD_IMG = tokenizer.pad_token_id  # use ordinary PAD as placeholder
-IGNORE = -100
-
-SYSTEM = "You are an assistant that converts UI screenshots to pix2code DSL."
-USER = "Below is a GUI image. Produce the DSL that recreates it."
-TEMPLATE = [
-    {"role": "system", "content": SYSTEM},
-    {"role": "user", "content": USER},
-    # image tokens go here (handled by the wrapper)
-    {"role": "assistant", "content": ""},  # we'll append the code after this
-]
+PAD_IMG = None  # Will be initialized after tokenizer
 
 
 class Pix2Code(Dataset):
-    def __init__(self, index_path, img_base_dir="datasets/web/all_data/"):
+    def __init__(self, index_path, img_base_dir, system_prompt, user_prompt):
         # Load JSON array instead of JSONL
         with open(index_path, "r") as f:
             self.rows = json.load(f)
         self.img_base_dir = img_base_dir
+        self.system_prompt = system_prompt
+        self.user_prompt = user_prompt
 
     def __len__(self):
         return len(self.rows)
@@ -82,18 +175,18 @@ class Pix2Code(Dataset):
 
         # Handle caption as array and get first element
         code = row["caption"][0]
-        if mode == "fast":
-            code = "hello world!"
+        # if mode == "fast":
+        #     code = "hello world!"
 
-        # Rest of your method remains the same
+        # Use configurable prompts
         prompt = [
             {
                 "role": "system",
-                "content": "You are an assistant that converts UI screenshots to pix2code DSL.",
+                "content": self.system_prompt,
             },
             {
                 "role": "user",
-                "content": "Below is a GUI image. Produce the DSL that recreates it.",
+                "content": self.user_prompt,
             },
             {"role": "assistant", "content": ""},  # empty for now
         ]
@@ -109,8 +202,7 @@ class Pix2Code(Dataset):
 
         # 4⃣  build labels: ignore prefix, learn on DSL
         prefix_len = len(ids) - len(code_ids)
-        labels = [IGNORE] * prefix_len + code_ids
-
+        labels = [IGNORE] * (prefix_len - N_PATCH) + code_ids  # ← drop N_PATCH
         return {
             "input_ids": torch.tensor(ids, dtype=torch.long),
             "labels": torch.tensor(labels, dtype=torch.long),
@@ -155,25 +247,41 @@ def collate(
 
 
 def infer(
-    model: MultiModalLLaDA, train_set: Pix2Code, tokenizer: AutoTokenizer, device: str
+    model: MultiModalLLaDA,
+    train_set: Pix2Code,
+    tokenizer: AutoTokenizer,
+    device: str,
+    generation_params: dict,
 ) -> torch.Tensor:
     """
     Run a single generation step on a random sample from the training set.
 
-    :param model: The model to use for generation.
-    :param train_set: The dataset to sample from.
-    :param tokenizer: The tokenizer to use for decoding.
-    :param device: The device to run the model on.
-    :return: The predicted tensor.
+    Args:
+        model: The model to use for generation.
+        train_set: The dataset to sample from.
+        tokenizer: The tokenizer to use for decoding.
+        device: The device to run the model on.
+        generation_params: Parameters for generation (steps, gen_length, block_length).
+
+    Returns:
+        torch.Tensor: The predicted tensor.
     """
     model.eval()
     sample = train_set[random.randint(0, len(train_set) - 1)]
-
+    if hasattr(model, "module"):
+        unwrapped_model = model.module
+    else:
+        unwrapped_model = model
     prefix_len = sample["input_ids"].size(0) - sample["code_len"]
     ids = sample["input_ids"][:prefix_len].unsqueeze(0).to(device)
 
     pred = generate(
-        model, ids, images=[sample["images"]], steps=64, gen_length=256, block_length=32
+        unwrapped_model,
+        ids,
+        images=[sample["images"]],
+        steps=generation_params["steps"],
+        gen_length=generation_params["gen_length"],
+        block_length=generation_params["block_length"],
     )
 
     print(tokenizer.decode(pred[0], skip_special_tokens=True))
@@ -237,13 +345,16 @@ def evaluate(model, val_loader, device, criterion):
                 input_ids=batch["input_ids"].to(device),
                 images=batch["images"],
             )
+            logits = out.logits  # (B, L-76, V)
+            labels = batch["labels"].to(device)[
+                :, N_PATCH:
+            ]  # drop img slots → (B, L-76)
 
-            # Calculate loss
-            loss = criterion(
-                out.logits.view(-1, out.logits.size(-1)),
-                batch["labels"].to(device).view(-1),
-                ignore_index=IGNORE,
-            )
+            # in case padding made labels a bit shorter than logits
+            seq_len = labels.size(1)
+            logits = logits[:, :seq_len, :]
+
+            loss = criterion(logits.reshape(-1, logits.size(-1)), labels.reshape(-1))
             total_loss += loss.item()
 
     avg_loss = total_loss / len(val_loader)
@@ -251,22 +362,75 @@ def evaluate(model, val_loader, device, criterion):
     return {"val_loss": avg_loss}
 
 
-def main():
-    # Define configuration parameters
-    BATCH_SIZE = 2
-    NUM_EPOCHS = 3
-    LEARNING_RATE_PROJ = 5e-5
-    LEARNING_RATE_LM = 1e-5
-    MIXED_PRECISION = "bf16"
-    SAVE_EPOCHS = 1
-    MODEL_NAME = "llada-pix2code"
-    LOG_DIR = "llada_checkpoints"
-    VALIDATE_EVERY = 1  # Validate every X epochs
+def main(config_path=None):
+    """
+    Main training function.
+
+    Args:
+        config_path (str, optional): Path to the YAML configuration file. Defaults to None.
+    """
+    global tokenizer, PAD_IMG, IGNORE
+
+    # Load configuration
+    config = load_config(config_path)
+
+    # Extract configuration parameters
+    BATCH_SIZE = config["batch_size"]
+    NUM_EPOCHS = config["num_epochs"]
+    LEARNING_RATE_PROJ = config["learning_rate_proj"]
+    LEARNING_RATE_LM = config["learning_rate_lm"]
+    MIXED_PRECISION = config["mixed_precision"]
+    GRAD_ACCUM = config["grad_accum"]
+    SAVE_EPOCHS = config["save_epochs"]
+    MODEL_NAME = config["model_name"]
+    LOG_DIR = config["log_dir"]
+    VALIDATE_EVERY = config["validate_every"]
+    WARMUP_RATIO = config["warmup_ratio"]
+    IMG_BASE_DIR = config["img_base_dir"]
+    TRAIN_DATA = config["train_data"]
+    VAL_DATA = config["val_data"]
+    WANDB_ENTITY = config["wandb_entity"]
+    LOG_STEPS = config["log_steps"]
+    NUM_WORKERS = config["num_workers"]
+    MODEL_PATH = config["model_path"]
+    SYSTEM_PROMPT = config["system_prompt"]
+    USER_PROMPT = config["user_prompt"]
+    OPTIMIZER_PARAMS = config["optimizer"]
+    GENERATION_PARAMS = config["generation"]
 
     # Create log directory
     os.makedirs(f"{LOG_DIR}/{MODEL_NAME}", exist_ok=True)
     os.makedirs(f"{LOG_DIR}/{MODEL_NAME}/logs", exist_ok=True)
     os.makedirs(f"{LOG_DIR}/{MODEL_NAME}/inferences", exist_ok=True)
+
+    # Save the configuration used for this run for reproducibility
+    with open(f"{LOG_DIR}/{MODEL_NAME}/used_config.yaml", "w") as f:
+        yaml.dump(config, f, default_flow_style=False)
+
+    # Initialize tokenizer
+    tokenizer = AutoTokenizer.from_pretrained(MODEL_PATH, trust_remote_code=True)
+
+    # Initialize global constants
+    PAD_IMG = tokenizer.pad_token_id  # use ordinary PAD as placeholder
+    IGNORE = -100
+
+    def save_model(accel, model):
+        # Get unwrapped model
+        unwrapped_model = accel.unwrap_model(model)
+
+        # Save final model
+        final_model_dir = f"{LOG_DIR}/{MODEL_NAME}/final_model"
+        os.makedirs(final_model_dir, exist_ok=True)
+        final_model_path = f"{final_model_dir}/pytorch_model.bin"
+        torch.save(unwrapped_model.state_dict(), final_model_path)
+
+        # Log as wandb artifact
+        if not running_in_ipython_family():
+            wandb_run = accel.get_tracker("wandb", unwrap=True)
+            final_model_artifact = wandb.Artifact("final_model", type="model")
+            final_model_artifact.add_file(final_model_path)
+            wandb_run.log_artifact(final_model_artifact)
+            accel.print(f"Final model saved at {final_model_path}")
 
     # Setup device
     device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -286,7 +450,9 @@ def main():
     # Check if we're in an interactive environment
     if running_in_ipython_family():
         accel = Accelerator(
-            mixed_precision=MIXED_PRECISION, kwargs_handlers=[init_kwargs]
+            mixed_precision=MIXED_PRECISION,
+            kwargs_handlers=[init_kwargs],
+            gradient_accumulation_steps=GRAD_ACCUM,
         )
         accel.init_trackers(
             "LLaDA-Training",
@@ -302,46 +468,53 @@ def main():
         accel.init_trackers(
             "LLaDA-Training",
             config=wandb_configs,
-            init_kwargs={"wandb": {"name": MODEL_NAME, "entity": "your-entity-name"}},
+            init_kwargs={"wandb": {"name": MODEL_NAME, "entity": WANDB_ENTITY}},
         )
-
-    # Load model components
+    # ---- 1. load backbone -------------------------------------------------------
     llada = (
         AutoModel.from_pretrained(
-            "GSAI-ML/LLaDA-8B-Instruct",
+            MODEL_PATH,
             trust_remote_code=True,
-            torch_dtype=torch.bfloat16,
+            torch_dtype=torch.bfloat16,  # keep bf16
         )
         .eval()
         .to(device)
-    )
+    )  # eval() disables dropout; fine for frozen LM
 
-    vision = FrozenVision(device)  # Vision component
-    for p in vision.parameters():  # freeze CLIP
+    # ---- 2. vision encoder (frozen) --------------------------------------------
+    vision = FrozenVision(device)
+    vision.to(torch.bfloat16)
+
+    # ---- 3. wrap & freeze LM ----------------------------------------------------
+    model = MultiModalLLaDA(llada, vision).to(device)
+    for name, p in model.vision.named_parameters():
+        p.requires_grad_(name.startswith("proj"))
+
+    for p in model.llada.parameters():  # ❶ freeze the whole transformer
         p.requires_grad_(False)
 
-    model = MultiModalLLaDA(llada, vision).to(device)  # Create the full model
-
-    # Set up parameter groups for optimization
-    proj_params = list(model.vision.proj.parameters())  # train these
-    lm_params = [p for n, p in model.named_parameters() if "vision.proj" not in n]
+    # ---- 4. *only* the projection learns ---------------------------------------
+    proj_params = [p for p in model.vision.proj.parameters() if p.requires_grad]
 
     optim = AdamW(
-        [
-            {"params": proj_params, "lr": LEARNING_RATE_PROJ},
-            {"params": lm_params, "lr": LEARNING_RATE_LM},
-        ],
+        proj_params,  # single param group
+        lr=5e-5,  # or whatever LEARNING_RATE_PROJ is
         betas=(0.9, 0.95),
-        weight_decay=0.1,
+        weight_decay=0.0,  # usually 0 for such a small layer
     )
+
+    # if you still want gradient-checkpointing for memory, you can keep it —
+    # it simply won’t touch the frozen transformer.
+    # llada.gradient_checkpointing_enable()
+
+    # optim = AdamW(proj_params, lr=5e-5)
 
     # Define loss function
     criterion = nn.CrossEntropyLoss(ignore_index=IGNORE)
 
-    # Load the datasets
-    img_base_dir = "datasets/web/all_data/"  # Adjust as needed
-    train_set = Pix2Code("train.json", img_base_dir)
-    val_set = Pix2Code("val.json", img_base_dir)
+    # Load the datasets with configurable prompts
+    train_set = Pix2Code(TRAIN_DATA, IMG_BASE_DIR, SYSTEM_PROMPT, USER_PROMPT)
+    val_set = Pix2Code(VAL_DATA, IMG_BASE_DIR, SYSTEM_PROMPT, USER_PROMPT)
 
     # Create data loaders
     train_loader = DataLoader(
@@ -349,10 +522,14 @@ def main():
         batch_size=BATCH_SIZE,
         shuffle=True,
         collate_fn=collate,
-        num_workers=4,
+        num_workers=NUM_WORKERS,
     )
     val_loader = DataLoader(
-        val_set, batch_size=BATCH_SIZE, shuffle=False, collate_fn=collate, num_workers=4
+        val_set,
+        batch_size=BATCH_SIZE,
+        shuffle=False,
+        collate_fn=collate,
+        num_workers=NUM_WORKERS,
     )
 
     # Prepare with accelerator
@@ -360,10 +537,10 @@ def main():
         model, optim, train_loader, val_loader
     )
 
-    # Set up learning rate scheduler
+    # Set up learning rate scheduler with configurable warmup
     n_step = NUM_EPOCHS * len(train_loader)  # Total steps
     sched = get_cosine_schedule_with_warmup(
-        optim, num_warmup_steps=int(0.05 * n_step), num_training_steps=n_step
+        optim, num_warmup_steps=int(WARMUP_RATIO * n_step), num_training_steps=n_step
     )
 
     start_time = time.time()
@@ -372,7 +549,7 @@ def main():
     if accel.is_local_main_process:
         accel.print("Performing initial inference...")
         with torch.no_grad():
-            pred = infer(model, train_set, tokenizer, device)
+            pred = infer(model, train_set, tokenizer, device, GENERATION_PARAMS)
 
         # Save initial inference
         inference_text = tokenizer.decode(pred[0], skip_special_tokens=True)
@@ -386,6 +563,10 @@ def main():
     global_step = 0
     best_val_loss = float("inf")
 
+    # TODO: remove
+    # if True:
+    #     save_model(accel, model)
+
     for epoch in range(NUM_EPOCHS):
         accel.print(f"\nEpoch {epoch+1}/{NUM_EPOCHS}")
         epoch_loss = 0
@@ -397,11 +578,17 @@ def main():
                     input_ids=batch["input_ids"].to(device),
                     images=batch["images"],  # list[ PIL ]
                 )
+                logits = out.logits  # (B, L-76, V)
+                labels = batch["labels"].to(device)[
+                    :, N_PATCH:
+                ]  # drop img slots → (B, L-76)
 
-                # Calculate loss
+                # in case padding made labels a bit shorter than logits
+                seq_len = labels.size(1)
+                logits = logits[:, :seq_len, :]
+
                 loss = criterion(
-                    out.logits.view(-1, out.logits.size(-1)),
-                    batch["labels"].to(device).view(-1),
+                    logits.reshape(-1, logits.size(-1)), labels.reshape(-1)
                 )
 
                 # Backward pass
@@ -410,8 +597,8 @@ def main():
                 sched.step()
                 optim.zero_grad()
 
-                # Log metrics periodically
-                if step % 50 == 0 or step == len(train_loader):
+                # Log metrics periodically based on config
+                if step % LOG_STEPS == 0 or step == len(train_loader):
                     elapsed = time.time() - start_time
                     metrics = {
                         "loss": loss.item(),
@@ -489,13 +676,15 @@ def main():
             model.eval()
             with torch.no_grad():
                 # Run inference on a train sample
-                train_pred = infer(model, train_set, tokenizer, device)
+                train_pred = infer(
+                    model, train_set, tokenizer, device, GENERATION_PARAMS
+                )
                 train_inference_text = tokenizer.decode(
                     train_pred[0], skip_special_tokens=True
                 )
 
                 # Run inference on a validation sample
-                val_pred = infer(model, val_set, tokenizer, device)
+                val_pred = infer(model, val_set, tokenizer, device, GENERATION_PARAMS)
                 val_inference_text = tokenizer.decode(
                     val_pred[0], skip_special_tokens=True
                 )
@@ -556,23 +745,7 @@ def main():
     # Save final model
     accel.wait_for_everyone()
     if accel.is_local_main_process:
-        # Get unwrapped model
-        unwrapped_model = accel.unwrap_model(model)
-
-        # Save final model
-        final_model_dir = f"{LOG_DIR}/{MODEL_NAME}/final_model"
-        os.makedirs(final_model_dir, exist_ok=True)
-        final_model_path = f"{final_model_dir}/pytorch_model.bin"
-        torch.save(unwrapped_model.state_dict(), final_model_path)
-
-        # Log as wandb artifact
-        if not running_in_ipython_family():
-            wandb_run = accel.get_tracker("wandb", unwrap=True)
-            final_model_artifact = wandb.Artifact("final_model", type="model")
-            final_model_artifact.add_file(final_model_path)
-            wandb_run.log_artifact(final_model_artifact)
-
-        accel.print(f"Final model saved at {final_model_path}")
+        save_model(accel, model)
 
     # End training
     accel.end_training()
@@ -580,4 +753,29 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    # Set up command line argument parsing
+    parser = argparse.ArgumentParser(description="Train LLaDA model for pix2code")
+    parser.add_argument(
+        "--config", type=str, help="Path to the YAML configuration file"
+    )
+    # parser.add_argument(
+    #     "--save-default-config",
+    #     action="store_true",
+    #     help="Save the default configuration to configs/default.yaml and exit",
+    # )
+    # parser.add_argument(
+    #     "--save-config-to",
+    #     type=str,
+    #     help="Save the default configuration to the specified path and exit",
+    # )
+    args = parser.parse_args()
+
+    # if args.save_default_config:
+    #     save_default_config()
+    #     exit(0)
+
+    # if args.save_config_to:
+    #     save_default_config(args.save_config_to)
+    #     exit(0)
+
+    main(args.config)
