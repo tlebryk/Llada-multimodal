@@ -1,0 +1,7 @@
+transformers==4.38.2 
+open-clip-torch==2.*
+timm==0.9.*
+torchvision
+einops
+accelerate
+modal
