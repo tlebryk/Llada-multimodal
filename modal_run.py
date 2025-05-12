@@ -26,6 +26,10 @@ image = (
         "timm==0.9.*",
         "torchvision>=0.22.0",
         "transformers==4.38.2",
+        "rouge_score",
+        "evaluate",
+        "numpy",
+        "bert_score",
         "wandb>=0.19.11",
     )
     .add_local_dir("datasets/web/all_data", remote_path="/root/datasets/web/all_data")
@@ -33,7 +37,7 @@ image = (
     .add_local_file("train.json", remote_path="/root/train.json")
     .add_local_file("val.json", remote_path="/root/val.json")
     .add_local_file("test.json", remote_path="/root/test.json")
-    .add_local_python_source("llada", "llada_train")
+    .add_local_python_source("llada", "llada_train", "eval_helper")
 )
 
 
@@ -43,17 +47,29 @@ app = modal.App("llada-train", image=image)
 @app.function(
     image=image,
     secrets=[modal.Secret.from_name("wandb-secret")],  # <-- injects env var
-    gpu="A100",
-    timeout=60 * 60 * 6,
+    gpu="h100",
+    timeout=60 * 60 * 8,
 )
 def train():
-    llada_train.main()
+    subprocess.run(
+        [
+            "accelerate",
+            "launch",
+            # "--config_file",
+            # "configs/accelerate_config.yaml",
+            # "--multi_gpu",
+            # "--num_processes",
+            # "4",  # Add this line to specify process count
+            "llada_train.py",
+        ],
+        check=True,
+    )
 
 
 @app.function(
     image=image,
     secrets=[modal.Secret.from_name("wandb-secret")],  # <-- injects env var
-    gpu="A100:2",
+    gpu="H100",
     timeout=60 * 60 * 6,
 )
 def accelerate_train():
@@ -61,11 +77,11 @@ def accelerate_train():
         [
             "accelerate",
             "launch",
-            "--config_file",
-            "configs/accelerate_config.yaml",
-            "--multi_gpu",
-            "--num_processes",
-            "2",  # Add this line to specify process count
+            # "--config_file",
+            # "configs/accelerate_config.yaml",
+            # "--multi_gpu",
+            # "--num_processes",
+            # "4",  # Add this line to specify process count
             "llada_train.py",
         ],
         check=True,

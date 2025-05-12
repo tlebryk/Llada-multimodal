@@ -149,7 +149,7 @@ class FrozenVision(nn.Module):
         super().__init__()
         self.vision = (
             CLIPVisionModel.from_pretrained("openai/clip-vit-large-patch14")
-            .eval()
+            # .eval()
             .to(device)
         )  # (B, 1+N, 1024)
         for p in self.vision.parameters():  # keep it cheap

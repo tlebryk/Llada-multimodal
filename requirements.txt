@@ -5,3 +5,7 @@ torchvision
 einops
 accelerate
 modal
+rouge_score
+evaluate
+numpy
+bert_score

@@ -25,6 +25,21 @@ import pandas as pd
 import wandb
 import argparse
 from typing import List, Dict, Any, Optional
+from eval_helper import load_metrics, compute_metrics
+import time
+
+tokenizer = None  # Will be initialized in main()
+
+N_PATCH = 256  # ViT-L/14 gives 1 + 76 tokens; we drop CLS
+PAD_IMG = None  # Will be initialized after tokenizer
+MASK_ID = None  # Will be initialized after tokenizer
+
+
+def batch_shapes_match(logits, targets):
+    """Validate that batch dimensions match for loss calculation"""
+    batch_size_logits = logits.size(0) * logits.size(1)  # B*L for reshaped tensor
+    batch_size_targets = targets.size(0) * targets.size(1)  # B*L for reshaped tensor
+    return batch_size_logits == batch_size_targets
 
 
 def running_in_ipython_family() -> bool:
@@ -46,6 +61,47 @@ def running_in_ipython_family() -> bool:
         return shell_name.endswith("InteractiveShell")
     except ImportError:
         return False
+
+
+def sample_mask(B, L, device):
+    t = torch.rand(B, 1, device=device)  # (B,1)
+    # Bernoulli mask
+    # Create an all-False mask first
+    mask = torch.zeros(B, L, dtype=torch.bool, device=device)
+
+    # # Only apply masking from index N_PATCH onwards
+    if N_PATCH < L:
+        # Apply random masking only to tokens from N_PATCH to the end
+        mask_probs = torch.rand(B, L - N_PATCH, device=device)
+        mask[:, N_PATCH:] = mask_probs < t
+    else:
+        mask = torch.rand(B, L, device=device) < t  # True ⇔ token will be masked
+    return mask, t
+
+
+def masked_ce(logits, targets, mask, t, eps=1e-8, criterion_tok=nn.CrossEntropyLoss()):
+    """
+    logits  : (B, L, V)  – output of the LM
+    targets : (B, L)     – original un-masked ids
+    mask    : (B, L) bool – True where token was masked / must be predicted
+    t       : (B, 1) or (B,) – corruption ratio that produced `mask`
+    """
+    B, L_model, V = logits.shape
+    # in case my dataloader trips over different batch sizes
+    _, L_target = targets.shape
+    L = min(L_model, L_target)
+    if L != L_target or L != L_model:
+        logits = logits[:, :L, :]
+        targets = targets[:, :L]
+        mask = mask[:, :L]
+        print("WARNING: batch shapes don't match!")
+    loss_tok = criterion_tok(logits.reshape(-1, V), targets.reshape(-1)).view(  # (B*L)
+        B, L
+    )  # (B, L)
+
+    # scale exactly like Eq.(3): 1/t and average over masked positions
+    loss_seq = (loss_tok * mask).sum(1) / (mask.sum(1) + eps)
+    return (loss_seq / t.squeeze(-1)).mean()  # scalar
 
 
 def load_config(config_path=None):
@@ -99,62 +155,6 @@ def load_config(config_path=None):
             raise Exception(f"Failed to load both specified and default config: {e}")
 
 
-# def save_default_config(file_path="configs/default.yaml"):
-#     """
-#     Save the default configuration to a YAML file for users to customize.
-
-#     Args:
-#         file_path (str, optional): Path to save the default configuration.
-#                                   Defaults to "configs/default.yaml".
-#     """
-#     # Ensure directory exists
-#     os.makedirs(os.path.dirname(file_path), exist_ok=True)
-
-#     # Default configuration
-#     default_config = {
-#         # Model parameters
-#         "model_path": "GSAI-ML/LLaDA-8B-Instruct",
-#         "system_prompt": "You are an assistant that converts UI screenshots to pix2code DSL.",
-#         "user_prompt": "Below is a GUI image. Produce the DSL that recreates it.",
-#         # Training parameters
-#         "batch_size": 2,
-#         "num_epochs": 3,
-#         "learning_rate_proj": 5e-5,
-#         "learning_rate_lm": 1e-5,
-#         "mixed_precision": "bf16",
-#         "save_epochs": 1,
-#         "validate_every": 1,
-#         "warmup_ratio": 0.05,  # For scheduler
-#         # Optimizer parameters
-#         "optimizer": {"betas": [0.9, 0.95], "weight_decay": 0.1},
-#         # Generation parameters
-#         "generation": {"steps": 64, "gen_length": 256, "block_length": 32},
-#         # Model and data paths
-#         "model_name": "llada-pix2code",
-#         "log_dir": "llada_checkpoints",
-#         "img_base_dir": "datasets/web/all_data/",
-#         "train_data": "train.json",
-#         "val_data": "val.json",
-#         # Logging settings
-#         "wandb_entity": "tlebryk-harvard-university",
-#         "log_steps": 50,  # Log metrics every X steps
-#         # Dataloader settings
-#         "num_workers": 4,
-#     }
-
-#     with open(file_path, "w") as f:
-#         yaml.dump(default_config, f, default_flow_style=False)
-
-#     print(f"Default configuration saved to {file_path}")
-#     return default_config
-
-
-tokenizer = None  # Will be initialized in main()
-
-N_PATCH = 76  # ViT-L/14 gives 1 + 76 tokens; we drop CLS
-PAD_IMG = None  # Will be initialized after tokenizer
-
-
 class Pix2Code(Dataset):
     def __init__(self, index_path, img_base_dir, system_prompt, user_prompt):
         # Load JSON array instead of JSONL
@@ -174,7 +174,7 @@ class Pix2Code(Dataset):
         img = Image.open(img_path).convert("RGB")
 
         # Handle caption as array and get first element
-        code = row["caption"][0]
+        code = row["caption"]
         # if mode == "fast":
         #     code = "hello world!"
 
@@ -209,6 +209,115 @@ class Pix2Code(Dataset):
             "images": img,
             "code_len": len(code_ids),  # handy for quick eval
         }
+
+
+def evaluate_val_set(
+    model: MultiModalLLaDA,
+    val_set: Pix2Code,
+    tokenizer: AutoTokenizer,
+    device: str,
+    generation_params: dict,
+    max_samples: int = None,  # Optional parameter to limit evaluation size
+):
+    """
+    Evaluate the model on the entire validation set and compute metrics.
+
+    Args:
+        model: The model to use for generation.
+        val_set: The validation dataset to evaluate on.
+        tokenizer: The tokenizer to use for encoding/decoding.
+        device: The device to run the model on.
+        generation_params: Parameters for generation (steps, gen_length, block_length).
+        max_samples: Maximum number of samples to evaluate (None for all samples).
+
+    Returns:
+        dict: A dictionary containing the computed metrics.
+    """
+
+    model.eval()
+
+    # Initialize lists to store predictions and references
+    predictions = []
+    references = []
+
+    # Get the unwrapped model if it's wrapped in DataParallel or similar
+    if hasattr(model, "module"):
+        unwrapped_model = model.module
+    else:
+        unwrapped_model = model
+
+    # Load the metrics
+    metrics = load_metrics()
+
+    # Determine how many samples to evaluate
+    num_samples = (
+        len(val_set) if max_samples is None else min(max_samples, len(val_set))
+    )
+    indices = range(num_samples)
+
+    start_time = time.time()
+
+    # Process each sample in the validation set
+    for idx in indices:
+        # Get a sample from the validation set
+        sample = val_set[idx]
+
+        # Extract prefix and target
+        prefix_len = sample["input_ids"].size(0) - sample["code_len"]
+        ids = sample["input_ids"][:prefix_len].unsqueeze(0).to(device)
+
+        # Get the ground truth code
+        ground_truth = tokenizer.decode(
+            sample["input_ids"][prefix_len:], skip_special_tokens=True
+        )
+
+        # Generate prediction
+        with torch.no_grad():
+            pred = generate(
+                unwrapped_model,
+                ids,
+                images=[sample["images"]],
+                steps=generation_params["steps"],
+                gen_length=generation_params["gen_length"],
+                block_length=generation_params["block_length"],
+            )
+
+        # Decode prediction
+        prediction_text = tokenizer.decode(
+            pred[0][prefix_len:], skip_special_tokens=True
+        )
+        if not prediction_text:
+            prediction_text = " "
+        # Store prediction and reference
+        predictions.append(prediction_text)
+        references.append(
+            [ground_truth]
+        )  # Reference is expected to be a list of strings
+
+        # Print progress periodically
+        if (idx + 1) % 10 == 0 or idx == num_samples - 1:
+            elapsed = time.time() - start_time
+            avg_time = elapsed / (idx + 1)
+            remaining = avg_time * (num_samples - idx - 1)
+            print(
+                f"Processed {idx + 1}/{num_samples} samples | "
+                f"Avg: {avg_time:.2f}s/sample | "
+                f"ETA: {remaining/60:.1f}m"
+            )
+
+    # Compute metrics
+    results = compute_metrics(
+        predictions=predictions,
+        references=references,
+        metrics=metrics,
+        compute_bertscores=True,
+    )
+
+    # Add sample counts to results
+    results["num_samples"] = num_samples
+    results["total_samples"] = len(val_set)
+
+    return results, predictions, references
 
 
 def collate(
@@ -337,29 +446,28 @@ def evaluate(model, val_loader, device, criterion):
         dict: Dictionary containing validation metrics
     """
     model.eval()
-    total_loss = 0
+    tot = 0
+    n = 0
     with torch.no_grad():
         for batch in val_loader:
-            # Forward pass
-            out = model(
-                input_ids=batch["input_ids"].to(device),
-                images=batch["images"],
+            B, L = batch["input_ids"].shape
+
+            mask, t = sample_mask(B, L, device)
+            masked_input = batch["input_ids"].clone()
+            masked_input[mask] = MASK_ID
+
+            logits = model(
+                input_ids=masked_input.to(device), images=batch["images"]
+            ).logits
+
+            loss = masked_ce(
+                logits, batch["input_ids"].to(device), mask, t, criterion_tok=criterion
             )
-            logits = out.logits  # (B, L-76, V)
-            labels = batch["labels"].to(device)[
-                :, N_PATCH:
-            ]  # drop img slots → (B, L-76)
+            tot += loss.item()
+            n += 1
 
-            # in case padding made labels a bit shorter than logits
-            seq_len = labels.size(1)
-            logits = logits[:, :seq_len, :]
-
-            loss = criterion(logits.reshape(-1, logits.size(-1)), labels.reshape(-1))
-            total_loss += loss.item()
-
-    avg_loss = total_loss / len(val_loader)
     model.train()
-    return {"val_loss": avg_loss}
+    return {"val_loss": tot / n}
 
 
 def main(config_path=None):
@@ -369,7 +477,7 @@ def main(config_path=None):
     Args:
         config_path (str, optional): Path to the YAML configuration file. Defaults to None.
     """
-    global tokenizer, PAD_IMG, IGNORE
+    global tokenizer, PAD_IMG, IGNORE, MASK_ID
 
     # Load configuration
     config = load_config(config_path)
@@ -409,10 +517,18 @@ def main(config_path=None):
 
     # Initialize tokenizer
     tokenizer = AutoTokenizer.from_pretrained(MODEL_PATH, trust_remote_code=True)
-
+    if tokenizer.mask_token is None:
+        tokenizer.add_special_tokens({"mask_token": "<mask>"})
     # Initialize global constants
     PAD_IMG = tokenizer.pad_token_id  # use ordinary PAD as placeholder
     IGNORE = -100
+    MASK_ID = tokenizer.mask_token_id
+
+    # ------------------------------------------------------------------
+    # 0. define ONCE, right after you build the tokenizer
+    # ------------------------------------------------------------------
+    # criterion_tok = nn.CrossEntropyLoss(reduction="none")
+    criterion = nn.CrossEntropyLoss(reduction="none")
 
     def save_model(accel, model):
         # Get unwrapped model
@@ -477,30 +593,36 @@ def main(config_path=None):
             trust_remote_code=True,
             torch_dtype=torch.bfloat16,  # keep bf16
         )
-        .eval()
+        # .eval()
         .to(device)
     )  # eval() disables dropout; fine for frozen LM
-
+    llada.resize_token_embeddings(len(tokenizer))
     # ---- 2. vision encoder (frozen) --------------------------------------------
     vision = FrozenVision(device)
     vision.to(torch.bfloat16)
+    vision.eval()
 
     # ---- 3. wrap & freeze LM ----------------------------------------------------
     model = MultiModalLLaDA(llada, vision).to(device)
     for name, p in model.vision.named_parameters():
-        p.requires_grad_(name.startswith("proj"))
-
-    for p in model.llada.parameters():  # ❶ freeze the whole transformer
+        # p.requires_grad_(name.startswith("proj"))
         p.requires_grad_(False)
 
+    # for p in model.llada.parameters():  # ❶ freeze the whole transformer
+    #     p.requires_grad_(False)
+    for p in model.llada.parameters():
+        p.requires_grad_(True)
+
+    lm_params = [p for n, p in model.llada.named_parameters() if "vision.proj" not in n]
     # ---- 4. *only* the projection learns ---------------------------------------
     proj_params = [p for p in model.vision.proj.parameters() if p.requires_grad]
 
     optim = AdamW(
-        proj_params,  # single param group
+        # proj_params,  # single param group
+        lm_params,
         lr=5e-5,  # or whatever LEARNING_RATE_PROJ is
         betas=(0.9, 0.95),
-        weight_decay=0.0,  # usually 0 for such a small layer
+        weight_decay=0.1,  # usually 0 for such a small layer
     )
 
     # if you still want gradient-checkpointing for memory, you can keep it —
@@ -510,7 +632,6 @@ def main(config_path=None):
     # optim = AdamW(proj_params, lr=5e-5)
 
     # Define loss function
-    criterion = nn.CrossEntropyLoss(ignore_index=IGNORE)
 
     # Load the datasets with configurable prompts
     train_set = Pix2Code(TRAIN_DATA, IMG_BASE_DIR, SYSTEM_PROMPT, USER_PROMPT)
@@ -566,33 +687,44 @@ def main(config_path=None):
     # TODO: remove
     # if True:
     #     save_model(accel, model)
-
+    skipped_batches = 0
     for epoch in range(NUM_EPOCHS):
         accel.print(f"\nEpoch {epoch+1}/{NUM_EPOCHS}")
         epoch_loss = 0
 
         for step, batch in enumerate(train_loader, 1):
+            pass
             with accel.accumulate(model):
-                # Forward pass
-                out = model(
-                    input_ids=batch["input_ids"].to(device),
-                    images=batch["images"],  # list[ PIL ]
+                # ----------- inside the training step -----------
+                B, L = batch["input_ids"].shape
+                # sample a mask ratio t for every sequence
+                mask, t = sample_mask(B, L, device)
+                masked_input = batch["input_ids"].clone()
+                masked_input[mask] = MASK_ID  # e.g. tokenizer.mask_token_id
+
+                # forward pass with *masked* input
+                out = model(input_ids=masked_input, images=batch["images"])
+                logits = out.logits  # (B, L, V)
+
+                # cross-entropy only on masked positions
+                # labels = batch["input_ids"]  # predict original token
+                # loss_per_token = criterion(
+                #     logits.view(-1, logits.size(-1)), labels.view(-1)
+                # ).view(B, L)
+                # if not batch_shapes_match(logits, batch["input_ids"]):
+                #     # raise ValueError(
+                #     #     f"Batch shape mismatch: logits {logits.shape} vs targets {batch['input_ids'].shape}"
+                #     # )
+                #     skipped_batches += 1
+                #     accel.print(f"Skipping batch {step} due to error: {str(e)}")
+                #     continue
+
+                loss = masked_ce(
+                    logits, batch["input_ids"], mask, t, criterion_tok=criterion
                 )
-                logits = out.logits  # (B, L-76, V)
-                labels = batch["labels"].to(device)[
-                    :, N_PATCH:
-                ]  # drop img slots → (B, L-76)
-
-                # in case padding made labels a bit shorter than logits
-                seq_len = labels.size(1)
-                logits = logits[:, :seq_len, :]
-
-                loss = criterion(
-                    logits.reshape(-1, logits.size(-1)), labels.reshape(-1)
-                )
-
                 # Backward pass
                 accel.backward(loss)
+                # accel.clip_grad_norm_(model.parameters(), max_norm=1.0)  # Add this line
                 optim.step()
                 sched.step()
                 optim.zero_grad()
@@ -741,12 +873,15 @@ def main(config_path=None):
                     wandb_run.log_artifact(checkpoint_artifact)
 
                 accel.print(f"Checkpoint saved at {checkpoint_path}")
-
     # Save final model
     accel.wait_for_everyone()
+    accel.log({"skipped_batches": skipped_batches})
     if accel.is_local_main_process:
         save_model(accel, model)
-
+        results, predictions, references = evaluate_val_set(
+            model, val_set, tokenizer, device, GENERATION_PARAMS
+        )
+        accel.log(results)
     # End training
     accel.end_training()
     accel.print("Training completed!")
@@ -758,24 +893,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--config", type=str, help="Path to the YAML configuration file"
     )
-    # parser.add_argument(
-    #     "--save-default-config",
-    #     action="store_true",
-    #     help="Save the default configuration to configs/default.yaml and exit",
-    # )
-    # parser.add_argument(
-    #     "--save-config-to",
-    #     type=str,
-    #     help="Save the default configuration to the specified path and exit",
-    # )
+
     args = parser.parse_args()
-
-    # if args.save_default_config:
-    #     save_default_config()
-    #     exit(0)
-
-    # if args.save_config_to:
-    #     save_default_config(args.save_config_to)
-    #     exit(0)
-
+    config_path = None
     main(args.config)
