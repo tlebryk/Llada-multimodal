@@ -27,6 +27,7 @@ import argparse
 from typing import List, Dict, Any, Optional
 from eval_helper import load_metrics, compute_metrics
 import time
+from tqdm import tqdm
 
 tokenizer = None  # Will be initialized in main()
 
@@ -257,10 +258,31 @@ def evaluate_val_set(
 
     start_time = time.time()
 
+    # Print the number of samples to be evaluated
+    print(f"Evaluating on {num_samples} samples")
+
     # Process each sample in the validation set
-    for idx in indices:
+    for idx in tqdm(indices):
+        # Print progress periodically
+        # if (idx + 1) % 10 == 0 or idx == num_samples - 1:
+        #     elapsed = time.time() - start_time
+        #     avg_time = elapsed / (idx + 1)
+        #     remaining = avg_time * (num_samples - idx - 1)
+        #     print(
+        #         f"Processed {idx + 1}/{num_samples} samples | "
+        #         f"Avg: {avg_time:.2f}s/sample | "
+        #         f"ETA: {remaining/60:.1f}m"
+        #     )
+
         # Get a sample from the validation set
         sample = val_set[idx]
+
+        # Print the sample
+        # print(f"Sample {idx + 1}:")
+        # print(f"  Input IDs: {sample['input_ids']}")
+        # print(f"  Labels: {sample['labels']}")
+        # print(f"  Images: {sample['images']}")
+        # print(f"  Code length: {sample['code_len']}")
 
         # Extract prefix and target
         prefix_len = sample["input_ids"].size(0) - sample["code_len"]
@@ -270,6 +292,7 @@ def evaluate_val_set(
         ground_truth = tokenizer.decode(
             sample["input_ids"][prefix_len:], skip_special_tokens=True
         )
+        # print(f"  Ground truth: {ground_truth}")
 
         # Generate prediction
         with torch.no_grad():
@@ -288,22 +311,13 @@ def evaluate_val_set(
         )
         if not prediction_text:
             prediction_text = " "
+        # print(f"  Prediction: {prediction_text}")
+
         # Store prediction and reference
         predictions.append(prediction_text)
         references.append(
             [ground_truth]
         )  # Reference is expected to be a list of strings
-
-        # Print progress periodically
-        if (idx + 1) % 10 == 0 or idx == num_samples - 1:
-            elapsed = time.time() - start_time
-            avg_time = elapsed / (idx + 1)
-            remaining = avg_time * (num_samples - idx - 1)
-            print(
-                f"Processed {idx + 1}/{num_samples} samples | "
-                f"Avg: {avg_time:.2f}s/sample | "
-                f"ETA: {remaining/60:.1f}m"
-            )
 
     # Compute metrics
     results = compute_metrics(
@@ -361,6 +375,7 @@ def infer(
     tokenizer: AutoTokenizer,
     device: str,
     generation_params: dict,
+    accelerator=None,
 ) -> torch.Tensor:
     """
     Run a single generation step on a random sample from the training set.
@@ -377,7 +392,9 @@ def infer(
     """
     model.eval()
     sample = train_set[random.randint(0, len(train_set) - 1)]
-    if hasattr(model, "module"):
+    if accelerator is not None:
+        unwrapped_model = accelerator.unwrap_model(model)
+    elif hasattr(model, "module"):
         unwrapped_model = model.module
     else:
         unwrapped_model = model
@@ -605,21 +622,25 @@ def main(config_path=None):
     # ---- 3. wrap & freeze LM ----------------------------------------------------
     model = MultiModalLLaDA(llada, vision).to(device)
     for name, p in model.vision.named_parameters():
-        # p.requires_grad_(name.startswith("proj"))
-        p.requires_grad_(False)
+        p.requires_grad_(name.startswith("proj"))
+        # p.requires_grad_(False)
 
     # for p in model.llada.parameters():  # ❶ freeze the whole transformer
-    #     p.requires_grad_(False)
+    # p.requires_grad_(False)
     for p in model.llada.parameters():
-        p.requires_grad_(True)
+        # p.requires_grad_(True)
+        p.requires_grad_(False)
 
     lm_params = [p for n, p in model.llada.named_parameters() if "vision.proj" not in n]
     # ---- 4. *only* the projection learns ---------------------------------------
     proj_params = [p for p in model.vision.proj.parameters() if p.requires_grad]
-
+    # params = lm_params + proj_params
+    # params = lm_params
+    # params = proj_params
     optim = AdamW(
-        # proj_params,  # single param group
-        lm_params,
+        proj_params,  # single param group
+        # lm_params,
+        # lm_params + proj_params,
         lr=5e-5,  # or whatever LEARNING_RATE_PROJ is
         betas=(0.9, 0.95),
         weight_decay=0.1,  # usually 0 for such a small layer
@@ -667,17 +688,25 @@ def main(config_path=None):
     start_time = time.time()
 
     # Initial inference for baseline
-    if accel.is_local_main_process:
-        accel.print("Performing initial inference...")
-        with torch.no_grad():
-            pred = infer(model, train_set, tokenizer, device, GENERATION_PARAMS)
+    # if accel.is_local_main_process:
+    #     accel.print("Performing initial inference...")
+    #     # unwrapped = accel.unwrap_model(model)
+    #     with torch.no_grad():
+    #         pred = infer(
+    #             model,
+    #             train_set,
+    #             tokenizer,
+    #             device,
+    #             GENERATION_PARAMS,
+    #             accelerator=accel,
+    #         )
 
-        # Save initial inference
-        inference_text = tokenizer.decode(pred[0], skip_special_tokens=True)
-        with open(f"{LOG_DIR}/{MODEL_NAME}/inferences/initial_inference.txt", "w") as f:
-            f.write(inference_text)
+    #     # Save initial inference
+    #     inference_text = tokenizer.decode(pred[0], skip_special_tokens=True)
+    #     with open(f"{LOG_DIR}/{MODEL_NAME}/inferences/initial_inference.txt", "w") as f:
+    #         f.write(inference_text)
 
-        accel.print(f"Initial inference saved.")
+    #     accel.print(f"Initial inference saved.")
 
     # Main training loop
     model.train()
@@ -806,47 +835,50 @@ def main(config_path=None):
         if accel.is_local_main_process:
             accel.print("Running inference...")
             model.eval()
-            with torch.no_grad():
-                # Run inference on a train sample
-                train_pred = infer(
-                    model, train_set, tokenizer, device, GENERATION_PARAMS
-                )
-                train_inference_text = tokenizer.decode(
-                    train_pred[0], skip_special_tokens=True
-                )
+            # unwrapped = accel.unwrap_model(model)
+            # with torch.no_grad():
+            #     # Run inference on a train sample
+            #     train_pred = infer(
+            #         model, train_set, tokenizer, device, GENERATION_PARAMS, accel
+            #     )
+            #     train_inference_text = tokenizer.decode(
+            #         train_pred[0], skip_special_tokens=True
+            #     )
 
-                # Run inference on a validation sample
-                val_pred = infer(model, val_set, tokenizer, device, GENERATION_PARAMS)
-                val_inference_text = tokenizer.decode(
-                    val_pred[0], skip_special_tokens=True
-                )
+            #     # Run inference on a validation sample
+            #     val_pred = infer(
+            #         unwrapped, val_set, tokenizer, device, GENERATION_PARAMS
+            #     )
+            #     val_inference_text = tokenizer.decode(
+            #         val_pred[0], skip_special_tokens=True
+            #     )
 
             # Save inference outputs
-            with open(
-                f"{LOG_DIR}/{MODEL_NAME}/inferences/epoch_{epoch+1}_train_inference.txt",
-                "w",
-            ) as f:
-                f.write(train_inference_text)
+            # with open(
+            #     f"{LOG_DIR}/{MODEL_NAME}/inferences/epoch_{epoch+1}_train_inference.txt",
+            #     "w",
+            # ) as f:
+            #     f.write(train_inference_text)
 
-            with open(
-                f"{LOG_DIR}/{MODEL_NAME}/inferences/epoch_{epoch+1}_val_inference.txt",
-                "w",
-            ) as f:
-                f.write(val_inference_text)
+            # with open(
+            #     f"{LOG_DIR}/{MODEL_NAME}/inferences/epoch_{epoch+1}_val_inference.txt",
+            #     "w",
+            # ) as f:
+            #     f.write(val_inference_text)
 
             # Log inferences as wandb artifacts
-            if not running_in_ipython_family():
-                wandb_run = accel.get_tracker("wandb", unwrap=True)
-                inference_artifact = wandb.Artifact(
-                    f"inference_epoch_{epoch+1}", type="text"
-                )
-                inference_artifact.add_file(
-                    f"{LOG_DIR}/{MODEL_NAME}/inferences/epoch_{epoch+1}_train_inference.txt"
-                )
-                inference_artifact.add_file(
-                    f"{LOG_DIR}/{MODEL_NAME}/inferences/epoch_{epoch+1}_val_inference.txt"
-                )
-                wandb_run.log_artifact(inference_artifact)
+            # if not running_in_ipython_family():
+            #     wandb_run = accel.get_tracker("wandb", unwrap=True)
+            #     inference_artifact = wandb.Artifact(
+            #         f"inference_epoch_{epoch+1}", type="text"
+            #     )
+            #     inference_artifact.add_file(
+            #         f"{LOG_DIR}/{MODEL_NAME}/inferences/epoch_{epoch+1}_train_inference.txt"
+            #     )
+            #     inference_artifact.add_file(
+            #         f"{LOG_DIR}/{MODEL_NAME}/inferences/epoch_{epoch+1}_val_inference.txt"
+            #     )
+            #     wandb_run.log_artifact(inference_artifact)
 
             model.train()
 
@@ -877,9 +909,12 @@ def main(config_path=None):
     accel.wait_for_everyone()
     accel.log({"skipped_batches": skipped_batches})
     if accel.is_local_main_process:
+        print("Evaluating final model on validation set...")
+        # del model
+        unwrapped = accel.unwrap_model(model)
         save_model(accel, model)
         results, predictions, references = evaluate_val_set(
-            model, val_set, tokenizer, device, GENERATION_PARAMS
+            unwrapped, val_set, tokenizer, device, GENERATION_PARAMS
         )
         accel.log(results)
     # End training
