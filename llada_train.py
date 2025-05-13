@@ -28,7 +28,7 @@ from typing import List, Dict, Any, Optional
 from eval_helper import load_metrics, compute_metrics
 import time
 from tqdm import tqdm
-
+from llada_common import load_config, safe_item, running_in_ipython_family, Pix2Code, collate, 
 tokenizer = None  # Will be initialized in main()
 
 N_PATCH = 256  # ViT-L/14 gives 1 + 76 tokens; we drop CLS
@@ -42,26 +42,6 @@ def batch_shapes_match(logits, targets):
     batch_size_targets = targets.size(0) * targets.size(1)  # B*L for reshaped tensor
     return batch_size_logits == batch_size_targets
 
-
-def running_in_ipython_family() -> bool:
-    """
-    True  → IPython terminal, Jupyter, Colab, Spyder, etc.
-    False → Standard CPython interpreter (batch / cron / cluster job)
-    """
-    try:
-        from IPython import get_ipython
-
-        ipy = get_ipython()
-        if ipy is None:  # not inside IPython at all
-            return False
-
-        shell_name = ipy.__class__.__name__
-        # • TerminalInteractiveShell  → `ipython` CLI               (IPython docs)¹
-        # • ZMQInteractiveShell       → Jupyter / Colab kernel      (SO answer)²
-        # • Other InteractiveShell…   → future front-ends
-        return shell_name.endswith("InteractiveShell")
-    except ImportError:
-        return False
 
 
 def sample_mask(B, L, device):
@@ -105,112 +85,38 @@ def masked_ce(logits, targets, mask, t, eps=1e-8, criterion_tok=nn.CrossEntropyL
     return (loss_seq / t.squeeze(-1)).mean()  # scalar
 
 
-def load_config(config_path=None):
+# utils/checkpoint.py
+from pathlib import Path
+import wandb
+from transformers import AutoTokenizer
+
+def save_llada_only(accel, model, tokenizer, out_dir, *, wandb_artifact_name=None):
     """
-    Load configuration from a YAML file. If no path is specified, use the default configuration
-    from 'configs/default.yaml'.
+    Persist only model.llada (the HF backbone) in 🤗 format.
 
-    Args:
-        config_path (str, optional): Path to the YAML configuration file. Defaults to None.
-
-    Returns:
-        dict: Configuration parameters
+    Parameters
+    ----------
+    accel   : Accelerator
+    model   : MultiModalLLaDA (wrapped by Accelerator)
+    tokenizer: AutoTokenizer           – save once so checkpoints stay self-contained
+    out_dir : str | Path               – e.g. f"{LOG_DIR}/{MODEL_NAME}/llada_ckpt"
+    wandb_artifact_name : str | None   – “llada-epoch-4” etc.
     """
-    # Set the default config path
-    default_config_path = "configs/default.yaml"
+    out_dir = Path(out_dir)
+    out_dir.mkdir(parents=True, exist_ok=True)
 
-    # If no config path is provided, use the default
-    if config_path is None:
-        config_path = default_config_path
+    # unwrap – this is instant and doesn’t move tensors
+    llada = accel.unwrap_model(model).llada
+    llada.save_pretrained(out_dir, safe_serialization=True, max_shard_size="2GB")
+    tokenizer.save_pretrained(out_dir)
 
-    try:
-        with open(config_path, "r") as f:
-            config = yaml.safe_load(f)
-            return config
-    except FileNotFoundError:
-        if config_path == default_config_path:
-            print(f"Default config file not found at {default_config_path}.")
-            print("Creating default config directory and file...")
+    if accel.is_local_main_process and wandb_artifact_name:
+        run = accel.get_tracker("wandb", unwrap=True)
+        art = wandb.Artifact(wandb_artifact_name, type="model")
+        art.add_dir(out_dir)
+        run.log_artifact(art)
 
-            # Ensure the configs directory exists
-            os.makedirs(os.path.dirname(default_config_path), exist_ok=True)
-
-            # Create the default config file
-            # save_default_config(default_config_path)
-
-            # Now load it
-            with open(default_config_path, "r") as f:
-                return yaml.safe_load(f)
-        else:
-            print(f"Config file not found at {config_path}.")
-            print(f"Using default config from {default_config_path} instead.")
-            return load_config(None)  # Recursively try to load the default config
-    except Exception as e:
-        print(f"Error loading configuration file: {e}")
-        if config_path != default_config_path:
-            print(
-                f"Attempting to use default config from {default_config_path} instead."
-            )
-            return load_config(None)  # Try to load the default config
-        else:
-            raise Exception(f"Failed to load both specified and default config: {e}")
-
-
-class Pix2Code(Dataset):
-    def __init__(self, index_path, img_base_dir, system_prompt, user_prompt):
-        # Load JSON array instead of JSONL
-        with open(index_path, "r") as f:
-            self.rows = json.load(f)
-        self.img_base_dir = img_base_dir
-        self.system_prompt = system_prompt
-        self.user_prompt = user_prompt
-
-    def __len__(self):
-        return len(self.rows)
-
-    def __getitem__(self, i, mode="fast"):
-        row = self.rows[i]
-        # Use the new image field and path structure
-        img_path = os.path.join(self.img_base_dir, row["image"])
-        img = Image.open(img_path).convert("RGB")
-
-        # Handle caption as array and get first element
-        code = row["caption"]
-        # if mode == "fast":
-        #     code = "hello world!"
-
-        # Use configurable prompts
-        prompt = [
-            {
-                "role": "system",
-                "content": self.system_prompt,
-            },
-            {
-                "role": "user",
-                "content": self.user_prompt,
-            },
-            {"role": "assistant", "content": ""},  # empty for now
-        ]
-        conv_ids = tokenizer.apply_chat_template(
-            prompt, tokenize=True, add_generation_prompt=False
-        )  # list[int]
-
-        # 2⃣  tokenise the DSL alone
-        code_ids = tokenizer(code, add_special_tokens=False)["input_ids"]
-
-        # 3⃣  prepend image placeholders and join
-        ids = [PAD_IMG] * N_PATCH + conv_ids + code_ids
-
-        # 4⃣  build labels: ignore prefix, learn on DSL
-        prefix_len = len(ids) - len(code_ids)
-        labels = [IGNORE] * (prefix_len - N_PATCH) + code_ids  # ← drop N_PATCH
-        return {
-            "input_ids": torch.tensor(ids, dtype=torch.long),
-            "labels": torch.tensor(labels, dtype=torch.long),
-            "images": img,
-            "code_len": len(code_ids),  # handy for quick eval
-        }
-
+    accel.print(f"✅  LLaDA backbone saved to {out_dir.resolve()}")
 
 def evaluate_val_set(
     model: MultiModalLLaDA,
@@ -278,11 +184,7 @@ def evaluate_val_set(
         sample = val_set[idx]
 
         # Print the sample
-        # print(f"Sample {idx + 1}:")
-        # print(f"  Input IDs: {sample['input_ids']}")
-        # print(f"  Labels: {sample['labels']}")
-        # print(f"  Images: {sample['images']}")
-        # print(f"  Code length: {sample['code_len']}")
+
 
         # Extract prefix and target
         prefix_len = sample["input_ids"].size(0) - sample["code_len"]
@@ -292,7 +194,6 @@ def evaluate_val_set(
         ground_truth = tokenizer.decode(
             sample["input_ids"][prefix_len:], skip_special_tokens=True
         )
-        # print(f"  Ground truth: {ground_truth}")
 
         # Generate prediction
         with torch.no_grad():
@@ -311,7 +212,14 @@ def evaluate_val_set(
         )
         if not prediction_text:
             prediction_text = " "
-        # print(f"  Prediction: {prediction_text}")
+        if idx == 0:
+            print(f"Sample {idx + 1}:")
+            print(f"  Input IDs: {sample['input_ids']}")
+            print(f"  Labels: {sample['labels']}")
+            print(f"  Images: {sample['images']}")
+            print(f"  Code length: {sample['code_len']}")
+            print(f"  Ground truth: {ground_truth}")
+            print(f"  Prediction: {prediction_text}")
 
         # Store prediction and reference
         predictions.append(prediction_text)
@@ -330,43 +238,9 @@ def evaluate_val_set(
     # Add sample counts to results
     results["num_samples"] = num_samples
     results["total_samples"] = len(val_set)
+    print(f"{results=}")
 
     return results, predictions, references
-
-
-def collate(
-    batch: list[dict[str, torch.Tensor]],
-) -> dict[str, torch.Tensor | list[Image.Image]]:
-    """
-    Collates a batch of samples by padding sequences to the maximum length in the batch.
-
-    Args:
-        batch (list of dict): A list of dictionaries with keys "input_ids", "labels", and "images".
-                              "input_ids" and "labels" are torch tensors, "images" is a PIL image.
-
-    Returns:
-        dict: A dictionary with keys "input_ids", "labels", and "images".
-              "input_ids" and "labels" are padded and stacked torch tensors.
-              "images" is a list of PIL images.
-    """
-    # pad to max-len in batch
-    max_len = max(len(x["input_ids"]) for x in batch)  # Find max length in batch
-    for x in batch:
-        pad = max_len - len(x["input_ids"])  # Calculate padding needed
-        # Pad input_ids to max_len
-        x["input_ids"] = torch.cat(
-            [x["input_ids"], torch.full((pad,), PAD_IMG, dtype=torch.long)]
-        )
-        # Pad labels to max_len
-        x["labels"] = torch.cat(
-            [x["labels"], torch.full((pad,), IGNORE, dtype=torch.long)]
-        )
-    # Stack input_ids and labels, keep images as a list
-    return {
-        "input_ids": torch.stack([b["input_ids"] for b in batch]),
-        "labels": torch.stack([b["labels"] for b in batch]),
-        "images": [b["images"] for b in batch],  # keep list of images
-    }
 
 
 def infer(
@@ -442,11 +316,6 @@ def log_to_csv(metrics, step, log_dir, is_validation=False):
         )
 
 
-# Helper function to safely extract value from tensor
-def safe_item(value):
-    if hasattr(value, "item"):
-        return value.item()
-    return value
 
 
 def evaluate(model, val_loader, device, criterion):
@@ -522,7 +391,7 @@ def main(config_path=None):
     USER_PROMPT = config["user_prompt"]
     OPTIMIZER_PARAMS = config["optimizer"]
     GENERATION_PARAMS = config["generation"]
-
+    RUN_INFER = config["run_infer"]
     # Create log directory
     os.makedirs(f"{LOG_DIR}/{MODEL_NAME}", exist_ok=True)
     os.makedirs(f"{LOG_DIR}/{MODEL_NAME}/logs", exist_ok=True)
@@ -622,14 +491,14 @@ def main(config_path=None):
     # ---- 3. wrap & freeze LM ----------------------------------------------------
     model = MultiModalLLaDA(llada, vision).to(device)
     for name, p in model.vision.named_parameters():
-        p.requires_grad_(name.startswith("proj"))
-        # p.requires_grad_(False)
+        # p.requires_grad_(name.startswith("proj"))
+        p.requires_grad_(False)
 
     # for p in model.llada.parameters():  # ❶ freeze the whole transformer
     # p.requires_grad_(False)
     for p in model.llada.parameters():
-        # p.requires_grad_(True)
-        p.requires_grad_(False)
+        p.requires_grad_(True)
+        # p.requires_grad_(False)
 
     lm_params = [p for n, p in model.llada.named_parameters() if "vision.proj" not in n]
     # ---- 4. *only* the projection learns ---------------------------------------
@@ -638,8 +507,8 @@ def main(config_path=None):
     # params = lm_params
     # params = proj_params
     optim = AdamW(
-        proj_params,  # single param group
-        # lm_params,
+        # proj_params,  # single param group
+        lm_params,
         # lm_params + proj_params,
         lr=5e-5,  # or whatever LEARNING_RATE_PROJ is
         betas=(0.9, 0.95),
@@ -688,26 +557,37 @@ def main(config_path=None):
     start_time = time.time()
 
     # Initial inference for baseline
-    # if accel.is_local_main_process:
-    #     accel.print("Performing initial inference...")
-    #     # unwrapped = accel.unwrap_model(model)
-    #     with torch.no_grad():
-    #         pred = infer(
-    #             model,
-    #             train_set,
-    #             tokenizer,
-    #             device,
-    #             GENERATION_PARAMS,
-    #             accelerator=accel,
-    #         )
+    if RUN_INFER:
+        if accel.is_local_main_process:
+            accel.print("Performing initial inference...")
+            # unwrapped = accel.unwrap_model(model)
+            with torch.no_grad():
+                pred = infer(
+                    model,
+                    train_set,
+                    tokenizer,
+                    device,
+                    GENERATION_PARAMS,
+                    accelerator=accel,
+                )
 
-    #     # Save initial inference
-    #     inference_text = tokenizer.decode(pred[0], skip_special_tokens=True)
-    #     with open(f"{LOG_DIR}/{MODEL_NAME}/inferences/initial_inference.txt", "w") as f:
-    #         f.write(inference_text)
+            # Save initial inference
+            inference_text = tokenizer.decode(pred[0], skip_special_tokens=True)
+            with open(
+                f"{LOG_DIR}/{MODEL_NAME}/inferences/initial_inference.txt", "w"
+            ) as f:
+                f.write(inference_text)
 
-    #     accel.print(f"Initial inference saved.")
-
+            accel.print(f"Initial inference saved.")
+    if accel.is_local_main_process:
+        print("Evaluating final model on validation set...")
+        # del model
+        # unwrapped = accel.unwrap_model(model)
+        save_model(accel, model)
+        results, predictions, references = evaluate_val_set(
+            model, val_set, tokenizer, device, GENERATION_PARAMS
+        )
+        accel.log(results)
     # Main training loop
     model.train()
     global_step = 0
@@ -734,19 +614,6 @@ def main(config_path=None):
                 # forward pass with *masked* input
                 out = model(input_ids=masked_input, images=batch["images"])
                 logits = out.logits  # (B, L, V)
-
-                # cross-entropy only on masked positions
-                # labels = batch["input_ids"]  # predict original token
-                # loss_per_token = criterion(
-                #     logits.view(-1, logits.size(-1)), labels.view(-1)
-                # ).view(B, L)
-                # if not batch_shapes_match(logits, batch["input_ids"]):
-                #     # raise ValueError(
-                #     #     f"Batch shape mismatch: logits {logits.shape} vs targets {batch['input_ids'].shape}"
-                #     # )
-                #     skipped_batches += 1
-                #     accel.print(f"Skipping batch {step} due to error: {str(e)}")
-                #     continue
 
                 loss = masked_ce(
                     logits, batch["input_ids"], mask, t, criterion_tok=criterion
@@ -835,50 +702,51 @@ def main(config_path=None):
         if accel.is_local_main_process:
             accel.print("Running inference...")
             model.eval()
-            # unwrapped = accel.unwrap_model(model)
-            # with torch.no_grad():
-            #     # Run inference on a train sample
-            #     train_pred = infer(
-            #         model, train_set, tokenizer, device, GENERATION_PARAMS, accel
-            #     )
-            #     train_inference_text = tokenizer.decode(
-            #         train_pred[0], skip_special_tokens=True
-            #     )
+            if RUN_INFER:
+                # unwrapped = accel.unwrap_model(model)
+                with torch.no_grad():
+                    # Run inference on a train sample
+                    train_pred = infer(
+                        model, train_set, tokenizer, device, GENERATION_PARAMS, accel
+                    )
+                    train_inference_text = tokenizer.decode(
+                        train_pred[0], skip_special_tokens=True
+                    )
 
-            #     # Run inference on a validation sample
-            #     val_pred = infer(
-            #         unwrapped, val_set, tokenizer, device, GENERATION_PARAMS
-            #     )
-            #     val_inference_text = tokenizer.decode(
-            #         val_pred[0], skip_special_tokens=True
-            #     )
+                    # Run inference on a validation sample
+                    val_pred = infer(
+                        model, val_set, tokenizer, device, GENERATION_PARAMS
+                    )
+                    val_inference_text = tokenizer.decode(
+                        val_pred[0], skip_special_tokens=True
+                    )
 
-            # Save inference outputs
-            # with open(
-            #     f"{LOG_DIR}/{MODEL_NAME}/inferences/epoch_{epoch+1}_train_inference.txt",
-            #     "w",
-            # ) as f:
-            #     f.write(train_inference_text)
+                # Save inference outputs
+                with open(
+                    f"{LOG_DIR}/{MODEL_NAME}/inferences/epoch_{epoch+1}_train_inference.txt",
+                    "w",
+                ) as f:
+                    f.write(train_inference_text)
 
-            # with open(
-            #     f"{LOG_DIR}/{MODEL_NAME}/inferences/epoch_{epoch+1}_val_inference.txt",
-            #     "w",
-            # ) as f:
-            #     f.write(val_inference_text)
+                with open(
+                    f"{LOG_DIR}/{MODEL_NAME}/inferences/epoch_{epoch+1}_val_inference.txt",
+                    "w",
+                ) as f:
+                    f.write(val_inference_text)
 
-            # Log inferences as wandb artifacts
-            # if not running_in_ipython_family():
-            #     wandb_run = accel.get_tracker("wandb", unwrap=True)
-            #     inference_artifact = wandb.Artifact(
-            #         f"inference_epoch_{epoch+1}", type="text"
-            #     )
-            #     inference_artifact.add_file(
-            #         f"{LOG_DIR}/{MODEL_NAME}/inferences/epoch_{epoch+1}_train_inference.txt"
-            #     )
-            #     inference_artifact.add_file(
-            #         f"{LOG_DIR}/{MODEL_NAME}/inferences/epoch_{epoch+1}_val_inference.txt"
-            #     )
-            #     wandb_run.log_artifact(inference_artifact)
+                # Log inferences as wandb artifacts
+                if not running_in_ipython_family():
+                    wandb_run = accel.get_tracker("wandb", unwrap=True)
+                    inference_artifact = wandb.Artifact(
+                        f"inference_epoch_{epoch+1}", type="text"
+                    )
+                    inference_artifact.add_file(
+                        f"{LOG_DIR}/{MODEL_NAME}/inferences/epoch_{epoch+1}_train_inference.txt"
+                    )
+                    inference_artifact.add_file(
+                        f"{LOG_DIR}/{MODEL_NAME}/inferences/epoch_{epoch+1}_val_inference.txt"
+                    )
+                    wandb_run.log_artifact(inference_artifact)
 
             model.train()
 
@@ -911,10 +779,10 @@ def main(config_path=None):
     if accel.is_local_main_process:
         print("Evaluating final model on validation set...")
         # del model
-        unwrapped = accel.unwrap_model(model)
+        # unwrapped = accel.unwrap_model(model)
         save_model(accel, model)
         results, predictions, references = evaluate_val_set(
-            unwrapped, val_set, tokenizer, device, GENERATION_PARAMS
+            model, val_set, tokenizer, device, GENERATION_PARAMS
         )
         accel.log(results)
     # End training
