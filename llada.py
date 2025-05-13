@@ -81,11 +81,18 @@ def generate(
     pad_id=0,  # ← anything ≠ mask_id
 ):
     # ---- how many image tokens? ------------------------------------
-    n_img = 0
-    if images is not None:
-        with torch.no_grad():
-            n_img = model.vision(images)[0].shape[1]  # 76 for ViT-L/14
-
+    n_img = 256
+    # if images is not None:
+    #     with torch.no_grad():
+    #         try:
+    #             n_img = model.vision(images)[0].shape[1]  # 76 for ViT-L/14
+    #         except Exception as e:
+    #             print(f"Warning: {e}")
+    #             try:
+    #                 n_img = model.vision(images).shape[1]  # 77 for ViT-L/14
+    #             except Exception as e:
+    #                 print(f"Warning: {e}")
+    #                 n_img = 256
     # ---- build the working sequence  -------------------------------
     txt_len = prompt.shape[1]
     prefix = n_img + txt_len

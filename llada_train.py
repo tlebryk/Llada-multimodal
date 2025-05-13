@@ -28,7 +28,14 @@ from typing import List, Dict, Any, Optional
 from eval_helper import load_metrics, compute_metrics
 import time
 from tqdm import tqdm
-from llada_common import load_config, safe_item, running_in_ipython_family, Pix2Code, collate, 
+from llada_common import (
+    load_config,
+    safe_item,
+    running_in_ipython_family,
+    Pix2Code,
+    collate,
+)
+
 tokenizer = None  # Will be initialized in main()
 
 N_PATCH = 256  # ViT-L/14 gives 1 + 76 tokens; we drop CLS
@@ -41,7 +48,6 @@ def batch_shapes_match(logits, targets):
     batch_size_logits = logits.size(0) * logits.size(1)  # B*L for reshaped tensor
     batch_size_targets = targets.size(0) * targets.size(1)  # B*L for reshaped tensor
     return batch_size_logits == batch_size_targets
-
 
 
 def sample_mask(B, L, device):
@@ -88,7 +94,7 @@ def masked_ce(logits, targets, mask, t, eps=1e-8, criterion_tok=nn.CrossEntropyL
 # utils/checkpoint.py
 from pathlib import Path
 import wandb
-from transformers import AutoTokenizer
+
 
 def save_llada_only(accel, model, tokenizer, out_dir, *, wandb_artifact_name=None):
     """
@@ -117,6 +123,7 @@ def save_llada_only(accel, model, tokenizer, out_dir, *, wandb_artifact_name=Non
         run.log_artifact(art)
 
     accel.print(f"✅  LLaDA backbone saved to {out_dir.resolve()}")
+
 
 def evaluate_val_set(
     model: MultiModalLLaDA,
@@ -169,22 +176,10 @@ def evaluate_val_set(
 
     # Process each sample in the validation set
     for idx in tqdm(indices):
-        # Print progress periodically
-        # if (idx + 1) % 10 == 0 or idx == num_samples - 1:
-        #     elapsed = time.time() - start_time
-        #     avg_time = elapsed / (idx + 1)
-        #     remaining = avg_time * (num_samples - idx - 1)
-        #     print(
-        #         f"Processed {idx + 1}/{num_samples} samples | "
-        #         f"Avg: {avg_time:.2f}s/sample | "
-        #         f"ETA: {remaining/60:.1f}m"
-        #     )
-
         # Get a sample from the validation set
         sample = val_set[idx]
 
         # Print the sample
-
 
         # Extract prefix and target
         prefix_len = sample["input_ids"].size(0) - sample["code_len"]
@@ -314,8 +309,6 @@ def log_to_csv(metrics, step, log_dir, is_validation=False):
         print(
             f"{'Validation' if is_validation else 'Training'} metrics saved at step {step}"
         )
-
-
 
 
 def evaluate(model, val_loader, device, criterion):
@@ -579,15 +572,24 @@ def main(config_path=None):
                 f.write(inference_text)
 
             accel.print(f"Initial inference saved.")
-    if accel.is_local_main_process:
-        print("Evaluating final model on validation set...")
-        # del model
-        # unwrapped = accel.unwrap_model(model)
-        save_model(accel, model)
-        results, predictions, references = evaluate_val_set(
-            model, val_set, tokenizer, device, GENERATION_PARAMS
-        )
-        accel.log(results)
+    # if accel.is_local_main_process:
+    #     print("Evaluating final model on validation set...")
+    #     # del model
+    #     # unwrapped = accel.unwrap_model(model)
+    #     save_model(accel, model)
+    #     # inside your training loop, say every N steps or at the end:
+    #     # save_llada_only(
+    #     #     accel,
+    #     #     model,
+    #     #     tokenizer,
+    #     #     out_dir=f"{LOG_DIR}/{MODEL_NAME}/llada_epoch_final",
+    #     #     wandb_artifact_name=f"llada-epoch-final"
+    #     # )
+
+    #     results, predictions, references = evaluate_val_set(
+    #         model, val_set, tokenizer, device, GENERATION_PARAMS
+    #     )
+    #     accel.log(results)
     # Main training loop
     model.train()
     global_step = 0
@@ -777,10 +779,12 @@ def main(config_path=None):
     accel.wait_for_everyone()
     accel.log({"skipped_batches": skipped_batches})
     if accel.is_local_main_process:
-        print("Evaluating final model on validation set...")
         # del model
         # unwrapped = accel.unwrap_model(model)
+        print("saving final model")
         save_model(accel, model)
+
+        print("Evaluating final model on validation set...")
         results, predictions, references = evaluate_val_set(
             model, val_set, tokenizer, device, GENERATION_PARAMS
         )
