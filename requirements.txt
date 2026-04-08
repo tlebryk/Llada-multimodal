@@ -1,4 +1,4 @@
-transformers==4.38.2 
+transformers==5.0.0rc3 
 open-clip-torch==2.*
 timm==0.9.*
 torchvision
